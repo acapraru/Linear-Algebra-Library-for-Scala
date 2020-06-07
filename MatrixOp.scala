@@ -41,7 +41,7 @@ class MVOperations{
    * @param y second matrix
    * @return the result of addition in a third matrix
    */
-  def addM(x: Matrix, y: Matrix) : Matrix = {
+  def addM(x: Matrix, y: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	val ry = getRows(y); val cy = getColumns(y)
     assert(rx == ry && cx == cy, "The dimensions of the matrices are not equal!")
@@ -57,7 +57,7 @@ class MVOperations{
    * @param y second vector
    * @return the result of addition in a third vector
    */
-  def addV(x: Vector, y: Vector) : Vector = {
+  def addV(x: Vector, y: Vector): Vector = {
     val xsize = x.size; val ysize = y.size
     assert(xsize == ysize, "The dimensions of the vectors are not equal!")
 	val z = new Array[Double](xsize)
@@ -70,7 +70,7 @@ class MVOperations{
    * @param y right operand matrix
    * @return the result of subtraction in a third matrix
    */
-  def subM(x: Matrix, y: Matrix) : Matrix = {
+  def subM(x: Matrix, y: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	val ry = getRows(y); val cy = getColumns(y)
     assert(rx == ry && cx == cy, "The dimensions of the matrices are not equal!")
@@ -86,7 +86,7 @@ class MVOperations{
    * @param y right operand vector
    * @return the result of subtraction in a third vector
    */
-  def subV(x: Vector, y: Vector) : Vector = {
+  def subV(x: Vector, y: Vector): Vector = {
     val xsize = x.size; val ysize = y.size
     assert(xsize == ysize, "The dimensions of the vectors are not equal!")
 	val z = new Array[Double](xsize)
@@ -99,7 +99,7 @@ class MVOperations{
    * @param x the matrix which is multiplied
    * @return the result of constant multiplication in a new matrix
    */
-  def ctmulM(ct: Double, x: Matrix) : Matrix = {
+  def ctmulM(ct: Double, x: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
     val z = Array.ofDim[Double](rx,cx)
 	for(i <- 0 until rx)
@@ -113,7 +113,7 @@ class MVOperations{
    * @param x the vector which is multiplied
    * @return the result of constant multiplication in a new vector
    */
-  def ctmulV(ct: Double, x: Vector) : Vector = {
+  def ctmulV(ct: Double, x: Vector): Vector = {
     val xsize = x.size
 	val z = new Array[Double](xsize)
 	for(i <- 0 until xsize) z(i) = ct * x(i)
@@ -126,7 +126,7 @@ class MVOperations{
    * @param c number of columns of the new matrix
    * @return a new matrix with changed size
    */
-  def fillM(x: Matrix, r: Int, c: Int) : Matrix = {
+  def fillM(x: Matrix, r: Int, c: Int): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	assert(r > 0 && c > 0, "The new matrix should have positive dimensions!")
 	val z= Array.ofDim[Double](r,c)
@@ -137,9 +137,24 @@ class MVOperations{
 	    z(i)(j) = x(i)(j)
 	return z
   }
-   
+  
+  /** Change a vector's size.
+   * @param x vector to be changed
+   * @param d number of elements of the new vector
+   * @return a new vector with changed size
+   */
+  def fillV(x: Vector, d: Int): Vector = {
+    val xsize = x.size
+	assert(d > 0, "The new vector should have positive dimension!")
+	val z = new Array[Double](d)
+	val mind = Math.min(xsize,d)
+	for(i <- 0 until mind)
+	  z(i) = x(i)
+	return z
+  }
+  
   // Multiply 2 matrices with the naive O(n^3) algorithm.
-  private def naiveMul(x: Matrix, y: Matrix) : Matrix = {
+  private def naiveMul(x: Matrix, y: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	val ry = getRows(y); val cy = getColumns(y)
 	val z = Array.ofDim[Double](rx,cy)
@@ -151,7 +166,7 @@ class MVOperations{
   }
   
   // Divide a square matrix in 4.
-  private def divide4(x: Matrix):(Matrix,Matrix,Matrix,Matrix)={
+  private def divide4(x: Matrix): (Matrix,Matrix,Matrix,Matrix)={
     val rx = getRows(x); val ry = getColumns(x)
 	val x1 = Array.ofDim[Double](rx/2,ry/2)
 	val x2 = Array.ofDim[Double](rx/2,ry/2)
@@ -168,7 +183,7 @@ class MVOperations{
   }
   
   // Combine 4 square matrices into 1.
-  private def combine4(sol1: Matrix,sol2: Matrix,sol3: Matrix,sol4: Matrix) : Matrix = {
+  private def combine4(sol1: Matrix,sol2: Matrix,sol3: Matrix,sol4: Matrix): Matrix = {
 	val mid = getRows(sol1)
 	val sz = mid * 2
 	val z = Array.ofDim[Double](sz,sz)
@@ -182,7 +197,7 @@ class MVOperations{
   }
   
   // Multiply 2 matrices both square with Strassen's method combined with the naive method.
-  private def betterMul(x: Matrix, y: Matrix) : Matrix = {
+  private def betterMul(x: Matrix, y: Matrix): Matrix = {
     val sz = getRows(x)
 	if(sz <= 128 || sz%2 != 0) return naiveMul(x,y)
 	else {
@@ -208,7 +223,7 @@ class MVOperations{
    * @param y second matrix
    * @return the result of multiplication in a third matrix
    */
-  def mulM(x: Matrix, y: Matrix) : Matrix = {
+  def mulM(x: Matrix, y: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	val ry = getRows(y); val cy = getColumns(y)
 	assert(cx == ry, "The matrices are not compatible for multiplication!")
@@ -235,7 +250,7 @@ class MVOperations{
    * @param y second vector
    * @return the result of multiplication in a Double value
    */
-  def mulV(x: Vector, y: Vector) : Double = {
+  def mulV(x: Vector, y: Vector): Double = {
     val xsize = x.size; val ysize = y.size
 	assert(xsize == ysize, "The vectors are not compatible for multiplication")
 	var sol:Double = 0
@@ -245,13 +260,13 @@ class MVOperations{
   }
   
   // Is the matrix a column vector?
-  private def isVector(x: Matrix) : Boolean = return (getColumns(x) == 1)
+  private def isVector(x: Matrix): Boolean = return (getColumns(x) == 1)
   
   /** Transform a matrix into a vector.
    * @param x matrix to be transformed
    * @return x as a vector if possible
    */
-  def matrtovect(x: Matrix) : Vector = {
+  def matrtovect(x: Matrix): Vector = {
     assert(isVector(x), "The matrix should have only 1 column!")
 	val vsize = x.size
 	val z = new Array[Double](vsize)
@@ -263,7 +278,7 @@ class MVOperations{
    * @param x vector to be transformed
    * @return x as a matrix
    */
-  def vecttomatr(x: Vector) : Matrix = {
+  def vecttomatr(x: Vector): Matrix = {
 	val xsize = x.size
 	val z = Array.ofDim[Double](xsize,1)
 	for(i <- 0 until xsize) z(i)(0) = x(i)
@@ -271,13 +286,13 @@ class MVOperations{
   }
   
   // Is the matrix 1x1?
-  private def isValue(x: Matrix) : Boolean =  return (getRows(x) == 1 && getColumns(x) == 1)
+  private def isValue(x: Matrix): Boolean =  return (getRows(x) == 1 && getColumns(x) == 1)
   
   /** Transform a 1x1 matrix into a value.
    * @param x matrix to be transformed
    * @return x as a value
    */
-  def matrtoval(x: Matrix) : Double = {
+  def matrtoval(x: Matrix): Double = {
     assert(isValue(x), "The matrix should have only 1 column!")
 	return x(0)(0)
   }
@@ -285,20 +300,21 @@ class MVOperations{
   /** Multiply a matrix and a vector.
    * @param x matrix multiplied
    * @param y vector multiplied
-   * @return the result of multiplication in a new matrix
+   * @return the result of multiplication in a new vector
    */
-  def mulMV(x: Matrix, y: Vector) : Matrix = {
+  def mulMV(x: Matrix, y: Vector): Vector = {
     val cx = getColumns(x)
 	val ysize = y.size
 	assert(cx == ysize, "The matrix and the vector are not compatible")
     val z = vecttomatr(y)
-	return mulM(x,z)
+	val sol = mulM(x,z)
+	return matrtovect(sol)
   }
   /** Copy a matrix.
    * @param x matrix copied
    * @return the result in a new matrix
    */
-  def copyM(x: Matrix) : Matrix = {
+  def copyM(x: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	val z = Array.ofDim[Double](rx,cx)  
 	for(i <- 0 until rx)
@@ -310,7 +326,7 @@ class MVOperations{
    * @param x vector copied
    * @return the result in a new vector
    */
-  def copyV(x: Vector) : Vector = {
+  def copyV(x: Vector): Vector = {
     val xsize=x.size
 	val z = new Array[Double](xsize)
 	for(i <- 0 until xsize) z(i) = x(i)
@@ -321,15 +337,15 @@ class MVOperations{
    * @param size the dimension of the identity matrix
    * @return the generated identity matrix
    */
-  def genId(sz: Int) : Matrix = {
+  def genId(sz: Int): Matrix = {
     assert(sz > 0, "The dimension of the identity matrix should be positive!")
     val z = Array.ofDim[Double](sz,sz)
 	for(i <- 0 until sz) z(i)(i) = 1.0
 	return z
   }
 
-  // Fast exponentiation algorithm ( O(log n))
-  private def fastExp(x: Matrix, ct: Int) : Matrix = {
+  // Fast exponentiation algorithm ( O(x.size^2*log ct))
+  private def fastExp(x: Matrix, ct: Int): Matrix = {
     val xsize = getRows(x)
 	// Invariant I: sol * z^k = x^ct
 	var sol = genId(xsize) // sol = Id
@@ -354,7 +370,7 @@ class MVOperations{
 	* @param ct constant used for exponentiation
     * @return the result in a new matrix
    */
-  def expM(x: Matrix, ct: Int) : Matrix = {
+  def expM(x: Matrix, ct: Int): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	assert(rx == cx, "The matrix should be square!")
 	assert(ct >= 1, "The constant should be positive!")
@@ -365,7 +381,7 @@ class MVOperations{
    * @param x matrix transposed
    * @return the result in a new matrix
    */
-  def transposeM(x: Matrix) : Matrix = {
+  def transposeM(x: Matrix): Matrix = {
     val rx = getRows(x); val cx = getColumns(x)
 	val z = Array.ofDim[Double](cx,rx)
 	for(i <- 0 until cx)
@@ -388,7 +404,7 @@ class MVOperations{
    * @param x vector for which we compute the length
    * @return the length of the vector
    */
-  def lengthV(x: Vector) : Double = {
+  def lengthV(x: Vector): Double = {
     val z = mulV(x,x)
 	val sol = Math.sqrt(z)
 	return sol
@@ -399,7 +415,7 @@ class MVOperations{
    * @param y second vector used
    * @return the angle between the 2 vectors
    */
-  def angleV(x: Vector,y: Vector) : Double ={
+  def angleV(x: Vector,y: Vector): Double ={
     val xsize = x.size
 	val ysize = y.size
 	assert(xsize == ysize, "The vectors are not compatible!")
@@ -418,7 +434,7 @@ class MVOperations{
    * @param y second matrix to be checked for equality
    * @return true if x=y, false otherwise
    */
-  def isEqualM(x: Matrix, y: Matrix) : Boolean = {
+  def isEqualM(x: Matrix, y: Matrix): Boolean = {
     val rx = getRows(x); val cx = getColumns(x)
 	val ry = getRows(y); val cy = getColumns(y)
 	if(rx != ry || cx != cy) return false
@@ -432,7 +448,7 @@ class MVOperations{
    * @param y second vector to be checked for equality
    * @return true if x=y, false otherwise
    */
-  def isEqualV(x: Vector, y: Vector) : Boolean = {
+  def isEqualV(x: Vector, y: Vector): Boolean = {
     val xsize = x.size
 	val ysize = y.size
 	if(xsize != ysize) return false
@@ -444,7 +460,7 @@ class MVOperations{
    * @param x the matrix checked for symmetry
    * @return true if x is symmetric, false otherwise
    */
-  def isSymmetric(x: Matrix) : Boolean = {
+  def isSymmetric(x: Matrix): Boolean = {
     val rx = getRows(x); val cx = getColumns(x)
 	assert(rx == cx, "The matrix should be square!")
     val y = transposeM(x)

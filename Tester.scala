@@ -38,8 +38,8 @@ object Tester{
 	
 	val l1 = Array.ofDim[Double](1012,1012)
 	val l2 = Array.ofDim[Double](1012,1012)
-	for(i<- 0 until 1012)
-	  for(j<- 0 until 1012){
+	for(i <- 0 until 1012)
+	  for(j <- 0 until 1012){
 	    l1(i)(j)= i+j
 		if(i==j) l2(i)(j)= 1.0
 	  }
@@ -61,7 +61,7 @@ object Tester{
 	println(u.mulV(c,d))
 	
 	println
-	u.printM(u.mulMV(a,d))
+	u.printV(u.mulMV(a,d))
 	
 	println
 	val t3 = java.lang.System.currentTimeMillis()
