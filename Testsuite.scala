@@ -38,7 +38,35 @@ class Testsuite extends FunSuite{
   val symm3 = Array(Array(11.0,-5.0,2.0,4.0),Array(-5.0,3.0,9.0,7.0),Array(2.0,9.0,6.0,1.0),Array(4.0,7.0,1.0,16.0))
   val ex1 = Array(Array(1.0,1,1,2),Array(-1.0,0,2,-3),Array(2.0,4,8,5))
   val ex2 = Array(Array(1.0,0,0,0,2),Array(-2.0,1,-3,-2,-4),Array(0.0,5,-14,-9,0),Array(2.0,10,-28,-18,4))
-  val ex3 = Array(Array(1.0,1,5,1,4),Array(2.0,-1,1,2,2),Array(3.0,0,6,0-3))
+  val ex3 = Array(Array(1.0,1,5,1,4),Array(2.0,-1,1,2,2),Array(3.0,0,6,0,3))
+  val newex1 = Array(Array(2.0,1.0,1.0),Array(4.0,-6.0,0.0),Array(-2.0,7.0,2.0))
+  val newex2 = Array(Array(1.0,7,2,3,1),Array(5.0,1,3,2,1),Array(1.0,9,8,0,1))
+  val newex3 = Array(Array(3.0,5,4),Array(1.0,2,3),Array(8.0,1,7))
+  val newex4 = Array(Array(0.0,2,7,3),Array(1.0,2,5,6),Array(3.0,1,2,4),Array(1.0,2,8,1))
+  val newex5 = Array(Array(1.0,2),Array(1.0,3),Array(1.0,4),Array(1.0,5),Array(1.0,7))
+  val newex6 = Array(Array(1.0,2,3,4,5),Array(1.0,2,3,4,6),Array(1.0,2,3,4,7),Array(1.0,2,3,4,8))
+  val inv1 = Array(Array(2.0,2),Array(2.0,0))
+  val inv2 = Array(Array(1.0,2,3),Array(2.0,5,4),Array(1.0,-1,10))
+  val noinv1 = Array(Array(1.0,2),Array(1.0,2))
+  val noinv2 = Array(Array(2.0,1,-4),Array(-4.0,-1,6),Array(-2.0,2,-2))
+  val noinv3 = Array(Array(1.0,-1,2),Array(3.0,1,2),Array(2.0,3,-1))
+  val rnk1 = Array(Array(1.0,1,1),Array(2.0,0,4),Array(3.0,2,4),Array(0.0,5,-5))
+  val rnk2 = Array(Array(1.0,-2,3,4,5),Array(2.0,-3,4,5,6),Array(-1.0,0,1,2,3))
+  val rnk3 = Array(Array(3.0,-1,-2,3,-1),Array(4.0,1,2,5,4),Array(7.0,10,10,2,-3),Array(2.0,-3,-6,1,-6),Array(3.0,9,8,-3,-7))
+  val rnk4 = Array(Array(0.0,0,0,1),Array(0.0,0,0,0),Array(0.0,0,0,0),Array(0.0,0,0,0),Array(0.0,0,0,0),Array(0.0,0,0,0),Array(0.0,0,0,0))
+  val plu1 = Array(Array(2.0,1,3),Array(4.0,-1,3),Array(-2.0,5,5))
+  val plu2 = Array(Array(1.0,1,1),Array(2.0,2,5),Array(4.0,6,8))
+  val plu3 = Array(Array(0.0,1,0),Array(-8.0,8,1),Array(2.0,-2,0))
+  val plu4 = Array(Array(1.0,1,1),Array(4.0,3,-1),Array(3.0,5,3))
+  val plu5 = Array(Array(1.0,4,7),Array(2.0,5,8),Array(3.0,6,10))
+  val plu6 = Array(Array(2.0,1,4),Array(4.0,2,1),Array(4.0,1,5))
+  val det1 = Array(Array(3.0,4,6,8),Array(1.0,2,3,4),Array(7.0,2,3,5),Array(9.0,1,6,7))
+  val det2 = Array(Array(1.0,2),Array(-1.0,3))
+  val det3 = Array(Array(1.0,-1,2),Array(2.0,3,-3),Array(4.0,5,1))
+  val det4 = Array(Array(1.0,-1,2),Array(3.0,6,-1),Array(4.0,5,1))
+  val det5 = Array(Array(3.0,2,1),Array(2.0,1,-3),Array(4.0,0,1))
+  val det6 = Array(Array(2.0,1,-2,0),Array(0.0,3,2,1),Array(0.0,2,1,-3),Array(0.0,4,0,1))
+  val det7 = Array(Array(2.0,1,2,1),Array(0.0,3,2,1),Array(0.0,0,4,3),Array(0.0,0,0,1))
 
   test("Tests for equality of two matrices (isEqualM)"){
     assert(u.isEqualM(a,a) === true)
@@ -643,6 +671,236 @@ class Testsuite extends FunSuite{
 	intercept[AssertionError]{u.elMMul(7,0,1.0)}
 	intercept[AssertionError]{u.elMMul(7,8,2.0)}
 	intercept[AssertionError]{u.elMMul(7,-1,3.0)}
+  }
+  
+  test("Tests for reducing a matrix to its REF form (ref)"){
+    val s1 = u.ref(a)
+    val s2 = u.ref(symm2)
+    val s3 = u.ref(ex1)
+    val s4 = u.ref(ex2)
+    val s5 = u.ref(ex3)
+    val s6 = u.ref(newex1)
+    val s7 = u.ref(newex2)
+    val s8 = u.ref(newex3)
+    val s9 = u.ref(newex4)
+    val s10 = u.ref(newex5)
+	val s11 = u.ref(newex6)
+	assert(u.isEqualM(s1,Array(Array(1.0,2,3),Array(0.0,-13,-9),Array(0.0,0,-12.0/13),Array(0.0,0,0))) === true)
+	assert(u.isEqualM(s2,Array(Array(2.0,1,3),Array(0.0,3.5,3.5),Array(0.0,0,-1))) === true)
+	assert(u.isEqualM(s3,Array(Array(1.0,1,1,2),Array(0.0,1,3,-1),Array(0.0,0,0,3))) === true)
+	assert(u.isEqualM(s4,Array(Array(1.0,0,0,0,2),Array(0.0,1,-3,-2,0),Array(0.0,0,1,1,0),Array(0.0,0,0,0,0))) === true)
+	assert(u.isEqualM(s5,Array(Array(1.0,1,5,1,4),Array(0.0,-3,-9,0,-6),Array(0.0,0,0,-3,-3))) === true)
+	assert(u.isEqualM(s6,Array(Array(2.0,1,1),Array(0.0,-8,-2),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(s7,Array(Array(1.0,7,2,3,1),Array(0.0,-34,-7,-13,-4),Array(0.0,0,95.0/17,-64.0/17,-4.0/17))) === true)
+	assert(u.isEqualM(s8,Array(Array(3.0,5,4),Array(0.0,1.0/3,5.0/3),Array(0.0,0,58.0))) === true)
+	assert(u.isEqualM(s9,Array(Array(1.0,2,8,1),Array(0.0,2,7,3),Array(0.0,0,-4.5,8.5),Array(0.0,0,0,-2.0/3))) === true)
+	assert(u.isEqualM(s10,Array(Array(1.0,2.0),Array(0.0,1.0),Array(0.0,0.0),Array(0.0,0.0),Array(0.0,0.0))) === true)
+	assert(u.isEqualM(s11,Array(Array(1.0,2,3,4,5),Array(0.0,0,0,0,1),Array(0.0,0,0,0,0),Array(0.0,0,0,0,0))) === true)
+  }
+  
+  test("Tests for reducing a matrix to its RREF form (rref)"){
+    val s1 = u.rref(a)
+    val s2 = u.rref(symm2)
+    val s3 = u.rref(ex1)
+    val s4 = u.rref(ex2)
+    val s5 = u.rref(ex3)
+    val s6 = u.rref(newex1)
+    val s7 = u.rref(newex2)
+    val s8 = u.rref(newex3)
+    val s9 = u.rref(newex4)
+    val s10 = u.rref(newex5)
+	val s11 = u.rref(newex6)
+	assert(u.isEqualM(s1,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1),Array(0.0,0,0))) === true)
+	assert(u.isEqualM(s2,Array(Array(1.0,0,0),Array(0,1.0,0),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(s3,Array(Array(1.0,0,-2,0),Array(0.0,1,3,0),Array(0.0,0,0,1))) === true)
+	assert(u.isEqualM(s4,Array(Array(1.0,0,0,0,2),Array(0.0,1,0,1,0),Array(0.0,0,1,1,0),Array(0.0,0,0,0,0))) === true)
+	assert(u.isEqualM(s5,Array(Array(1.0,0,2,0,1),Array(0.0,1,3,0,2),Array(0.0,0,0,1,1))) === true)
+	assert(u.isEqualM(s6,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(s7,Array(Array(1.0,0,0,7.0/10,1.0/5),Array(0.0,1,0,99.0/190,12.0/95),Array(0.0,0,1,-64.0/95,-4.0/95))) === true)
+	assert(u.isEqualM(s8,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1.0))) === true)
+	assert(u.isEqualM(s9,Array(Array(1.0,0,0,0),Array(0.0,1,0,0),Array(0.0,0,1,0),Array(0.0,0,0,1))) === true)
+	assert(u.isEqualM(s10,Array(Array(1.0,0),Array(0.0,1.0),Array(0.0,0.0),Array(0.0,0.0),Array(0.0,0.0))) === true)
+	assert(u.isEqualM(s11,Array(Array(1.0,2,3,4,0),Array(0.0,0,0,0,1),Array(0.0,0,0,0,0),Array(0.0,0,0,0,0))) === true)
+  }
+  
+  test("Tests for the inverse of a matrix (inverse)"){
+	val s1 = u.inverse(f)
+	val s2 = u.inverse(g)
+	val s3 = u.inverse(h)
+	val s4 = u.inverse(i)
+	val s5 = u.inverse(k)
+	val s6 = u.inverse(l)
+	val s7 = u.inverse(n)
+	val s8 = u.inverse(x)
+	val s9 = u.inverse(y)
+	val s10 = u.inverse(symm1)
+	val s11 = u.inverse(symm2)
+	val s12 = u.inverse(symm3)
+	val s13 = u.inverse(inv1)
+	val s14 = u.inverse(inv2)
+	assert(u.isEqualM(s1,Array(Array(0.2857142857142857, 0.42857142857142855), Array(0.14285714285714285, -0.2857142857142857))) === true)
+	assert(u.isEqualM(s2,Array(Array(0.5102040816326531, -0.16326530612244897), Array(0.12244897959183673, 0.04081632653061224))) === true)
+	assert(u.isEqualM(s3,Array(Array(-0.07840139188116567, -0.04962828835468874, -0.019189746569905883, 0.06398117700419549), Array(0.39358912575121896, 0.22123398344483503, 0.3775725705862343, -0.1172468533847375), Array(0.15051664020864045, 0.010194608232225877, -0.2798751275654836, 0.013096722984465358), Array(-0.20428726329515817, -0.2435490843633065, -0.3158716266016555, 0.07033110329969385))) === true)
+	assert(u.isEqualM(s4,Array(Array(0.3566140309138878, -0.6920382357849735, 0.5143792543879895, 0.24689209966586298), Array(-0.27405626711076236, 0.34836713171247885, -0.1692700473331179, 0.2742693194044478), Array(-0.20115687395471218, -0.30240997652873897, 0.16987369549856013, 0.36456798321147926), Array(-0.05191374222802987, -0.08819477240688726, -0.03206437019966551, 0.18411269045987338))) === true)
+	assert(u.isEqualM(s5,Array(Array(2.7468086726236827, 2.3378942539724146, 3.4165248406022806, 2.668387933958846, -8.079810409230033), Array(-0.12997322812184384, 0.5310141318510181, 0.005673845667543, 0.4202392218615803, -0.48705809054253046), Array(1.220948946471663, 1.5003238067336382, 1.896577478470707, 1.8052972275975854, -4.807284398683186), Array(0.584603664412869, 0.7186871178887801, 0.7407874093148403, 0.8289657169620761, -2.1516824940057204), Array(-0.4014336157647621, -0.5088777012805785, -0.4874158680718851, -0.4066906566337977, 1.3570055972306814))) === true)
+	assert(u.isEqualM(s6,l) === true)
+	assert(u.isEqualM(s7,Array(Array(0.3265669050503484, -0.43879692862607517, 0.10246032618819115, -0.18837670481701482, -0.07460880494106839, -0.200102418289716, 0.006837764700357529, 0.2423511494305215, 0.2869554063041596, 0.058560513963955375),
+	                           Array(-0.13824553292768485, -0.6969492319562745, 0.4404527710742081, -0.1699314864835239, 0.2600356915458009, -0.5191935239032226, 0.021930513563170093, 0.3582773596099751, 0.2650718270406534, 0.3211479973655562),
+							   Array(0.06284837058831749, 0.49459316333886827, -0.42246076049585, 0.18231263073172266, -0.13056017411227916, 0.42343462422286293, -0.019765044896405907, -0.2783000106529973, -0.13711512264904652, -0.269055967928634),
+							   Array(0.07719634708100012, -0.05311469937707407, -0.12012914245033118, -0.10480668518150278, 0.018729072800910313, -0.003094798059249948, -0.0029749481315322103, -0.015711791538968893, 0.06029483734866685, -0.06675068423480701),
+							   Array(-0.04353534384751434, 0.02280505166258697, 0.28109092536396185, -0.025197524695537425, -0.007031857801739325, -0.22528059196845882, 0.01443618485284995, 0.1392481087221586, 0.02581137436925638, 0.1816823743742106),
+							   Array(-0.16036127989399096, 0.0026303870057996395, -0.009003392079278473, 0.01853931535966118, -1.93754910991701E-4, 0.3414395097687036, -0.01767377045469668, -0.10551233871322058, -0.09907188838957681, -0.024226891576724585),
+							   Array(-0.01831405386061685, -0.03794572714686597, 0.039586668451758164, -0.017094201123545608, 0.007993740985854059, -0.008896264340051268, 0.011286831343829478, 0.019630634982419886, 0.007697059016270013, 0.026207619293026042),
+							   Array(0.11502613425571104, 0.204591848252904, -0.20094620331300206, 0.09015924999813847, -0.017121208889435267, -0.02636331146892907, -0.004970817284246323, 0.0063314046889148285, -0.055752507288670386, -0.11999333230946688),
+							   Array(0.024607913483066436, 0.005685676121055903, -0.06649374111935026, 0.010669079131003774, 0.024265615859681604, 0.05322287283658643, -0.004420006002582766, -0.07822590394212221, 0.028290428591944607, -0.10319497064611244),
+							   Array(-0.03810438590513825, -0.09907186614020905, 0.1342005326023991, -0.028235604666469665, 0.07702464129346788, -0.11474948265028417, 0.005489660674298832, 0.039164227122376834, -0.004403179547384375, 0.13155116688589216))) === true)
+	assert(u.isEqualM(s8,Array(Array(0.4))) === true)
+	assert(u.isEqualM(s9,Array(Array(0.25))) === true)
+	assert(u.isEqualM(s10,Array(Array(0.6, -0.2), Array(-0.2, 0.4))) === true)
+	assert(u.isEqualM(s11,Array(Array(-0.42857142857142855, -1.1428571428571428, 1.0), Array(-1.1428571428571428, -0.7142857142857143, 1.0), Array(1.0, 1.0, -1.0))) === true)
+	assert(u.isEqualM(s12,Array(Array(0.060923935510541545, -0.04552501033484911, 0.04769532864820174, 0.0017052501033484912), Array(-0.04552501033484911, -0.04655849524596941, 0.0805601488218272, 0.026715584952459695), Array(0.04769532864820174, 0.0805601488218272, 0.038187267465895, -0.04955560148821827), Array(0.0017052501033484912, 0.026715584952459695, -0.04955560148821827, 0.053482844150475405))) === true)
+	assert(u.isEqualM(s13,Array(Array(0.0, 0.5), Array(0.5, -0.5))) === true)
+	assert(u.isEqualM(s14,Array(Array(54.0, -23.0, -7.0), Array(-16.0, 7.0, 2.0), Array(-7.0, 3.0, 1.0))) === true)
+	intercept[AssertionError]{u.inverse(noinv1)}
+	intercept[AssertionError]{u.inverse(noinv2)}
+	intercept[AssertionError]{u.inverse(noinv3)}
+    intercept[AssertionError]{u.inverse(a)}
+    intercept[AssertionError]{u.inverse(b)}
+    intercept[AssertionError]{u.inverse(t)}
+    intercept[AssertionError]{u.inverse(w)}
+    intercept[AssertionError]{u.inverse(a1)}
+  }
+  
+  test("Tests for finding the rank of a matrix (rank)"){
+    val s1 = u.rank(a)
+    val s2 = u.rank(symm2)
+    val s3 = u.rank(ex1)
+    val s4 = u.rank(ex2)
+    val s5 = u.rank(ex3)
+    val s6 = u.rank(newex1)
+    val s7 = u.rank(newex2)
+    val s8 = u.rank(newex3)
+    val s9 = u.rank(newex4)
+    val s10 = u.rank(newex5)
+	val s11 = u.rank(newex6)
+	val s12 = u.rank(rnk1)
+	val s13 = u.rank(rnk2)
+	val s14 = u.rank(rnk3)
+	val s15 = u.rank(rnk4)
+	assert((s1 == 3) === true)
+	assert((s2 == 3) === true)
+	assert((s3 == 3) === true)
+	assert((s4 == 3) === true)
+	assert((s5 == 3) === true)
+	assert((s6 == 3) === true)
+	assert((s7 == 3) === true)
+	assert((s8 == 3) === true)
+	assert((s9 == 4) === true)
+	assert((s10 == 2) === true)
+	assert((s11 == 2) === true)
+	assert((s12 == 2) === true)
+	assert((s13 == 2) === true)
+	assert((s14 == 3) === true)
+	assert((s15 == 1) === true)
+  }
+  
+  test("Tests for PLU decomposition (plu)"){
+    val (p1,l1,u1) = u.plu(newex4)
+	assert(u.isEqualM(p1,Array(Array(0.0,0,0,1),Array(1.0,0,0,0),Array(0.0,0,1,0),Array(0.0,1,0,0))) === true)
+	assert(u.isEqualM(l1,Array(Array(1.0,0,0,0),Array(0.0,1,0,0),Array(3.0,-2.5,1,0),Array(1.0,0,2.0/3,1))) === true)
+	assert(u.isEqualM(u1,Array(Array(1.0,2,8,1),Array(0.0,2,7,3),Array(0.0,0,-4.5,8.5),Array(0.0,0,0,-2.0/3))) === true)
+	assert(u.isEqualM(u.mulM(p1,newex4),u.mulM(l1,u1)) === true)
+    val (p2,l2,u2) = u.plu(plu1)
+	assert(u.isEqualM(p2,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(l2,Array(Array(1.0,0,0),Array(2.0,1,0),Array(-1.0,-2,1))) === true)
+	assert(u.isEqualM(u2,Array(Array(2.0,1,3),Array(0.0,-3,-3),Array(0.0,0,2))) === true)
+	assert(u.isEqualM(u.mulM(p2,plu1),u.mulM(l2,u2)) === true)
+    val (p3,l3,u3) = u.plu(plu2)
+	assert(u.isEqualM(p3,Array(Array(1.0,0,0),Array(0.0,0,1),Array(0.0,1,0))) === true)
+	assert(u.isEqualM(l3,Array(Array(1.0,0,0),Array(4.0,1,0),Array(2.0,0,1))) === true)
+	assert(u.isEqualM(u3,Array(Array(1.0,1,1),Array(0.0,2,4),Array(0.0,0,3))) === true)
+	assert(u.isEqualM(u.mulM(p3,plu2),u.mulM(l3,u3)) === true)
+    val (p4,l4,u4) = u.plu(plu3)
+	assert(u.isEqualM(p4,Array(Array(0.0,0,1),Array(1.0,0,0),Array(0.0,1,0))) === true)
+	assert(u.isEqualM(l4,Array(Array(1.0,0,0),Array(0.0,1,0),Array(-4.0,0,1))) === true)
+	assert(u.isEqualM(u4,Array(Array(2.0,-2,0),Array(0.0,1,0),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(u.mulM(p4,plu3),u.mulM(l4,u4)) === true)
+    val (p5,l5,u5) = u.plu(plu4)
+	assert(u.isEqualM(p5,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(l5,Array(Array(1.0,0,0),Array(4.0,1,0),Array(3.0,-2,1))) === true)
+	assert(u.isEqualM(u5,Array(Array(1.0,1,1),Array(0.0,-1,-5),Array(0.0,0,-10))) === true)
+	assert(u.isEqualM(u.mulM(p5,plu4),u.mulM(l5,u5)) === true)
+    val (p6,l6,u6) = u.plu(plu5)
+	assert(u.isEqualM(p6,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(l6,Array(Array(1.0,0,0),Array(2.0,1,0),Array(3.0,2,1))) === true)
+	assert(u.isEqualM(u6,Array(Array(1.0,4,7),Array(0.0,-3,-6),Array(0.0,0,1))) === true)
+	assert(u.isEqualM(u.mulM(p6,plu5),u.mulM(l6,u6)) === true)
+    val (p7,l7,u7) = u.plu(plu6)
+	assert(u.isEqualM(p7,Array(Array(1.0,0,0),Array(0.0,0,1),Array(0.0,1,0))) === true)
+	assert(u.isEqualM(l7,Array(Array(1.0,0,0),Array(2.0,1,0),Array(2.0,0,1))) === true)
+	assert(u.isEqualM(u7,Array(Array(2.0,1,4),Array(0.0,-1,-3),Array(0.0,0,-7))) === true)
+	assert(u.isEqualM(u.mulM(p7,plu6),u.mulM(l7,u7)) === true)
+    intercept[AssertionError]{u.plu(a)}
+    intercept[AssertionError]{u.plu(b)}
+    intercept[AssertionError]{u.plu(t)}
+    intercept[AssertionError]{u.plu(w)}
+    intercept[AssertionError]{u.plu(a1)}
+  }
+  
+  test("Tests for finding the determinant of a matrix (det)"){
+	val s1 = u.det(f)
+	val s2 = u.det(g)
+	val s3 = u.det(h)
+	val s4 = u.det(i)
+	val s5 = u.det(k)
+	val s6 = u.det(l)
+	val s7 = u.det(m)
+	val s8 = u.det(x)
+	val s9 = u.det(y)
+	val s10 = u.det(symm1)
+	val s11 = u.det(symm2)
+	val s12 = u.det(newex1)
+	val s13 = u.det(inv1)
+	val s14 = u.det(inv2)
+	val s15 = u.det(det1)
+	val s16 = u.det(det2)
+	val s17 = u.det(det3)
+	val s18 = u.det(det4)
+	val s19 = u.det(det5)
+	val s20 = u.det(det6)
+	val s21 = u.det(det7)
+	val s22 = u.det(noinv1)
+	val s23 = u.det(noinv2)
+	val s24 = u.det(noinv3)
+	assert(eqDouble(s1,-7.0) === true)
+	assert(eqDouble(s2,24.5) === true)
+	assert(eqDouble(s3,1128.832) === true)
+	assert(eqDouble(s4,112.6484) === true)
+	assert(eqDouble(s5,83.012480000000000044) === true)
+	assert(eqDouble(s6,1.0) === true)
+	assert(eqDouble(s7,-274.79624499999999994) === true)
+	assert(eqDouble(s8,2.5) === true)
+	assert(eqDouble(s9,4.0) === true)
+	assert(eqDouble(s10,5.0) === true)
+	assert(eqDouble(s11,-7.0) === true)
+	assert(eqDouble(s12,-16.0) === true)
+	assert(eqDouble(s13,-4.0) === true)
+	assert(eqDouble(s14,1.0) === true)
+	assert(eqDouble(s15,-9.0) === true)
+	assert(eqDouble(s16,5.0) === true)
+	assert(eqDouble(s17,28.0) === true)
+	assert(eqDouble(s18,0.0) === true)
+	assert(eqDouble(s19,-29.0) === true)
+	assert(eqDouble(s20,-58.0) === true)
+	assert(eqDouble(s21,24.0) === true)
+	assert(eqDouble(s22,0.0) === true)
+	assert(eqDouble(s23,0.0) === true)
+	assert(eqDouble(s24,0.0) === true)
+    intercept[AssertionError]{u.det(a)}
+    intercept[AssertionError]{u.det(b)}
+    intercept[AssertionError]{u.det(t)}
+    intercept[AssertionError]{u.det(w)}
+    intercept[AssertionError]{u.det(a1)}
   }
   
 }

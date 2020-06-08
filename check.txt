@@ -2,9 +2,6 @@ areInd
 areOrth
 areOrthSets
 columnSpace
-det
-genId
-inverse
 isOnetoOneLinTr
 isOntoLinTr
 isOrthNormSet
@@ -14,13 +11,7 @@ normV
 nullityLinTr
 nullspace
 orthGrSch
-plu
-printM
-printV
 rangeLinTr
-rank
 rankLinTr
-ref
 rowSpace
-rref
 sysSolve

@@ -808,7 +808,7 @@ class MVOperations{
 	if(nbsw%2 == 1) detinvp = -1.0 // the determinant of p is (-1)^nbsw and so is the determinant of the inverse of p
 	var detu = 1.0 
 	for(i <- 0 until rx)  detu*=u(i)(i) // the determinant of u is the product of elements on the diagonal
-	var detx = detinvp * detl * detu // p*x=l*u <=> x=(p^-1)*l*u
+	var detx = detinvp * detl * detu // p*x=l*u <=> x=(p^-1)*l*u (as p is invertible)
 	if(is0(detx)) detx = 0.0 // 0.0 instead of -0.0
 	return detx
   }
