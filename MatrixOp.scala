@@ -925,7 +925,6 @@ class MVOperations{
 	for(i <- 0 until count)
 	  for(j <- 0 until rz)
 	    if(pivots(j)!= cz && !is0(z(j)(positions(i)))) basis(i)(pivots(j)) = -z(j)(positions(i))
-		
 	if(tp == 0){
 	  println
 	  // printing the solution

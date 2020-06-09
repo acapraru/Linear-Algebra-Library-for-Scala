@@ -38,7 +38,7 @@ class Testsuite extends FunSuite{
   val symm3 = Array(Array(11.0,-5.0,2.0,4.0),Array(-5.0,3.0,9.0,7.0),Array(2.0,9.0,6.0,1.0),Array(4.0,7.0,1.0,16.0))
   val ex1 = Array(Array(1.0,1,1,2),Array(-1.0,0,2,-3),Array(2.0,4,8,5))
   val ex2 = Array(Array(1.0,0,0,0,2),Array(-2.0,1,-3,-2,-4),Array(0.0,5,-14,-9,0),Array(2.0,10,-28,-18,4))
-  val ex3 = Array(Array(1.0,1,5,1,4),Array(2.0,-1,1,2,2),Array(3.0,0,6,0,3))
+  val ex3 = Array(Array(1.0,1,5,1,4),Array(2.0,-1,1,2,2),Array(3.0,0,6,0,-3))
   val newex1 = Array(Array(2.0,1.0,1.0),Array(4.0,-6.0,0.0),Array(-2.0,7.0,2.0))
   val newex2 = Array(Array(1.0,7,2,3,1),Array(5.0,1,3,2,1),Array(1.0,9,8,0,1))
   val newex3 = Array(Array(3.0,5,4),Array(1.0,2,3),Array(8.0,1,7))
@@ -67,6 +67,26 @@ class Testsuite extends FunSuite{
   val det5 = Array(Array(3.0,2,1),Array(2.0,1,-3),Array(4.0,0,1))
   val det6 = Array(Array(2.0,1,-2,0),Array(0.0,3,2,1),Array(0.0,2,1,-3),Array(0.0,4,0,1))
   val det7 = Array(Array(2.0,1,2,1),Array(0.0,3,2,1),Array(0.0,0,4,3),Array(0.0,0,0,1))
+  val sys1 = (Array(Array(1.0,1,1),Array(2.0,3,5),Array(4.0,0,5)),Array(5.0,8,2))
+  val sys2 = (Array(Array(1.0,2),Array(2.0,-1)),Array(1.0,7))
+  val sys3 = (Array(Array(2.0,1,-1),Array(1.0,0,5),Array(-1.0,3,-2)),Array(3.0,6,3))
+  val sys4 = (Array(Array(-3.0,-4),Array(4.0,6),Array(1.0,1)),Array(-1.0,-2,0))
+  val sys5 = (Array(Array(-3.0,4,1),Array(-4.0,6,1)),Array(1.0,2))
+  val sys6 = (Array(Array(-1.0,1,1),Array(3.0,-1,0),Array(2.0,-4,-5)),Array(0.0,0,0))
+  val sys7 = (Array(Array(1.0,-2,3),Array(-3.0,6,-9)),Array(0.0,0))
+  val sys8 = (Array(Array(1.0,3,10),Array(-2.0,7,32),Array(-1.0,3,14),Array(1.0,1,2)),Array(18.0,29,12,8))
+  val sys9 = (Array(Array(3.0,-2,16,-2),Array(-1.0,5,-14,18),Array(3.0,-1,14,2)),Array(-7.0,29,1))
+  val sys10 = (Array(Array(1.0,2,-3),Array(2.0,-1,1),Array(4.0,-1,1)),Array(9.0,0,4))
+  val sys11 = (Array(Array(2.0,1,-1,-1,2),Array(0.0,1,-2,1,1),Array(0.0,0,1,2,-1)),Array(3.0,-1,2))
+  val sys12 = (Array(Array(1.0,-2,-1),Array(2.0,1,3),Array(-3.0,1,-2)),Array(-2.0,1,1))
+  val sys13 = (Array(Array(3.0,2,1),Array(2.0,-1,4)),Array(-1.0,5))
+  val sys14 = (Array(Array(1.0,1,1,1),Array(1.0,0,1,1),Array(1.0,0,1,0)),Array(6.0,4,2))
+  val sys15 = (plu5,Array(2.0,1,3))
+  val sys16 = (plu6,Array(7.0,7,10))
+  val sys17 = (ex1,Array(0.0,0,0))
+  val sys18 = (ex2,Array(0.0,0,0,0))
+  val sys19 = (ex3,Array(0.0,0,0))
+  val sys20 = (Array(Array(0.0,4,8),Array(1.0,2,3),Array(2.0,5,9)),Array(10.0,11,12))
 
   test("Tests for equality of two matrices (isEqualM)"){
     assert(u.isEqualM(a,a) === true)
@@ -689,7 +709,7 @@ class Testsuite extends FunSuite{
 	assert(u.isEqualM(s2,Array(Array(2.0,1,3),Array(0.0,3.5,3.5),Array(0.0,0,-1))) === true)
 	assert(u.isEqualM(s3,Array(Array(1.0,1,1,2),Array(0.0,1,3,-1),Array(0.0,0,0,3))) === true)
 	assert(u.isEqualM(s4,Array(Array(1.0,0,0,0,2),Array(0.0,1,-3,-2,0),Array(0.0,0,1,1,0),Array(0.0,0,0,0,0))) === true)
-	assert(u.isEqualM(s5,Array(Array(1.0,1,5,1,4),Array(0.0,-3,-9,0,-6),Array(0.0,0,0,-3,-3))) === true)
+	assert(u.isEqualM(s5,Array(Array(1.0,1,5,1,4),Array(0.0,-3,-9,0,-6),Array(0.0,0,0,-3,-9))) === true)
 	assert(u.isEqualM(s6,Array(Array(2.0,1,1),Array(0.0,-8,-2),Array(0.0,0,1))) === true)
 	assert(u.isEqualM(s7,Array(Array(1.0,7,2,3,1),Array(0.0,-34,-7,-13,-4),Array(0.0,0,95.0/17,-64.0/17,-4.0/17))) === true)
 	assert(u.isEqualM(s8,Array(Array(3.0,5,4),Array(0.0,1.0/3,5.0/3),Array(0.0,0,58.0))) === true)
@@ -714,7 +734,7 @@ class Testsuite extends FunSuite{
 	assert(u.isEqualM(s2,Array(Array(1.0,0,0),Array(0,1.0,0),Array(0.0,0,1))) === true)
 	assert(u.isEqualM(s3,Array(Array(1.0,0,-2,0),Array(0.0,1,3,0),Array(0.0,0,0,1))) === true)
 	assert(u.isEqualM(s4,Array(Array(1.0,0,0,0,2),Array(0.0,1,0,1,0),Array(0.0,0,1,1,0),Array(0.0,0,0,0,0))) === true)
-	assert(u.isEqualM(s5,Array(Array(1.0,0,2,0,1),Array(0.0,1,3,0,2),Array(0.0,0,0,1,1))) === true)
+	assert(u.isEqualM(s5,Array(Array(1.0,0,2,0,-1),Array(0.0,1,3,0,2),Array(0.0,0,0,1,3))) === true)
 	assert(u.isEqualM(s6,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1))) === true)
 	assert(u.isEqualM(s7,Array(Array(1.0,0,0,7.0/10,1.0/5),Array(0.0,1,0,99.0/190,12.0/95),Array(0.0,0,1,-64.0/95,-4.0/95))) === true)
 	assert(u.isEqualM(s8,Array(Array(1.0,0,0),Array(0.0,1,0),Array(0.0,0,1.0))) === true)
@@ -901,6 +921,131 @@ class Testsuite extends FunSuite{
     intercept[AssertionError]{u.det(t)}
     intercept[AssertionError]{u.det(w)}
     intercept[AssertionError]{u.det(a1)}
+  }
+  
+  test("Tests for solving a linear system (sysSolve)"){
+  
+    println("The solution to system 1")
+	val (base1,s1) = u.sysSolve(sys1._1,sys1._2)
+	assert((base1.size == 0) === true)
+	assert(u.isEqualV(s1,Array(3.0,4,-2)) === true)
+	
+    println("The solution to system 2")
+	val (base2,s2) = u.sysSolve(sys2._1,sys2._2)
+	assert((base2.size == 0) === true)
+	assert(u.isEqualV(s2,Array(3.0,-1)) === true)
+	
+    println("The solution to system 3")
+	val (base3,s3) = u.sysSolve(sys3._1,sys3._2)
+	assert((base3.size == 0) === true)
+	assert(u.isEqualV(s3,Array(1.0,2,1)) === true)
+
+    println("The solution to system 4")
+	val (base4,s4) = u.sysSolve(sys4._1,sys4._2)
+	assert((base4.size == 0) === true)
+	assert((s4.size == 0) === true)
+	println
+	
+    println("The solution to system 5")
+	val (base5,s5) = u.sysSolve(sys5._1,sys5._2)
+	assert((base5.size == 1) === true)
+	assert(u.isEqualV(base5(0),Array(1.0,0.5,1)) === true)
+	assert(u.isEqualV(s5,Array(1.0,1,0)) === true)
+	
+    println("The solution to system 6")
+	val (base6,s6) = u.sysSolve(sys6._1,sys6._2)
+	assert((base6.size == 1) === true)
+	assert(u.isEqualV(base6(0),Array(-0.5,-1.5,1)) === true)
+	assert(u.isEqualV(s6,Array(0.0,0,0)) === true)
+	
+    println("The solution to system 7")
+	val (base7,s7) = u.sysSolve(sys7._1,sys7._2)
+	assert((base7.size == 2) === true)
+	assert(u.isEqualV(base7(0),Array(2.0,1,0)) === true)
+	assert(u.isEqualV(base7(1),Array(-3,0,1)) === true)
+	assert(u.isEqualV(s7,Array(0.0,0,0)) === true)
+	
+    println("The solution to system 8")
+	val (base8,s8) = u.sysSolve(sys8._1,sys8._2)
+	assert((base8.size == 1) === true)
+	assert(u.isEqualV(base8(0),Array(2.0,-4,1)) === true)
+	assert(u.isEqualV(s8,Array(3.0,5,0)) === true)
+	
+    println("The solution to system 9")
+	val (base9,s9) = u.sysSolve(sys9._1,sys9._2)
+	assert((base9.size == 0) === true)
+	assert((s9.size == 0) === true)
+	println
+	
+    println("The solution to system 10")
+	val (base10,s10) = u.sysSolve(sys10._1,sys10._2)
+	assert((base10.size == 0) === true)
+	assert(u.isEqualV(s10,Array(2.0,5,1)) === true)
+	
+    println("The solution to system 11")
+	val (base11,s11) = u.sysSolve(sys11._1,sys11._2)
+	assert((base11.size == 2) === true)
+	assert(u.isEqualV(base11(0),Array(2.0,-5,-2,1,0)) === true)
+	assert(u.isEqualV(base11(1),Array(-1,1,1,0,1)) === true)
+	assert(u.isEqualV(s11,Array(1.0,3,2,0,0)) === true)
+	
+    println("The solution to system 12")
+	val (base12,s12) = u.sysSolve(sys12._1,sys12._2)
+	assert((base12.size == 1) === true)
+	assert(u.isEqualV(base12(0),Array(-1.0,-1,1)) === true)
+	assert(u.isEqualV(s12,Array(0.0,1,0)) === true)
+	
+    println("The solution to system 13")
+	val (base13,s13) = u.sysSolve(sys13._1,sys13._2)
+	assert((base13.size == 1) === true)
+	assert(u.isEqualV(base13(0),Array(-9.0/7,10.0/7,1)) === true)
+	assert(u.isEqualV(s13,Array(9.0/7,-17.0/7,0)) === true)
+	
+    println("The solution to system 14")
+	val (base14,s14) = u.sysSolve(sys14._1,sys14._2)
+	assert((base14.size == 1) === true)
+	assert(u.isEqualV(base14(0),Array(-1.0,0,1,0)) === true)
+	assert(u.isEqualV(s14,Array(2.0,2,0,2)) === true)
+	
+    println("The solution to system 15")
+	val (base15,s15) = u.sysSolve(sys15._1,sys15._2)
+	assert((base15.size == 0) === true)
+	assert(u.isEqualV(s15,Array(1.0,-5,3)) === true)
+	
+    println("The solution to system 16")
+	val (base16,s16) = u.sysSolve(sys16._1,sys16._2)
+	assert((base16.size == 0) === true)
+	assert(u.isEqualV(s16,Array(1.0,1,1)) === true)
+	
+    println("The solution to system 17")
+	val (base17,s17) = u.sysSolve(sys17._1,sys17._2)
+	assert((base17.size == 1) === true)
+	assert(u.isEqualV(base17(0),Array(2.0,-3,1,0)) === true)
+	assert(u.isEqualV(s17,Array(0.0,0,0,0)) === true)
+	
+    println("The solution to system 18")
+	val (base18,s18) = u.sysSolve(sys18._1,sys18._2)
+	assert((base18.size == 2) === true)
+	assert(u.isEqualV(base18(0),Array(0.0,-1,-1,1,0)) === true)
+	assert(u.isEqualV(base18(1),Array(-2.0,0,0,0,1)) === true)
+	assert(u.isEqualV(s18,Array(0.0,0,0,0,0)) === true)
+	
+    println("The solution to system 19")
+	val (base19,s19) = u.sysSolve(sys19._1,sys19._2)
+	assert((base19.size == 2) === true)
+	assert(u.isEqualV(base19(0),Array(-2.0,-3,1,0,0)) === true)
+	assert(u.isEqualV(base19(1),Array(1.0,-2.0,0,-3.0,1)) === true)
+	assert(u.isEqualV(s19,Array(0.0,0,0,0,0)) === true)
+	
+    println("The solution to system 20")	
+	val (base20,s20) = u.sysSolve(sys20._1,sys20._2)
+	assert((base20.size == 0) === true)
+	assert(u.isEqualV(s20,Array(-6.5,27.5,-12.5)) === true)
+	
+    intercept[AssertionError]{u.sysSolve(a,c)}
+    intercept[AssertionError]{u.sysSolve(f,d)}
+    intercept[AssertionError]{u.sysSolve(k,o)}
+    intercept[AssertionError]{u.sysSolve(n,r)}
   }
   
 }

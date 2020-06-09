@@ -14,4 +14,3 @@ orthGrSch
 rangeLinTr
 rankLinTr
 rowSpace
-sysSolve
