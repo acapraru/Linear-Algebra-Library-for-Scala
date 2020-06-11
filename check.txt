@@ -1,16 +1,9 @@
-areInd
-areOrth
-areOrthSets
 columnSpace
 isOnetoOneLinTr
 isOntoLinTr
-isOrthNormSet
-isOrthSet
 kernelLintTr
-normV
 nullityLinTr
 nullspace
-orthGrSch
 rangeLinTr
 rankLinTr
 rowSpace

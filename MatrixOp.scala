@@ -959,7 +959,11 @@ class MVOperations{
    * @param a the array of vectors for which we check independence
    * @return true if the vectors are linerly independent, false otherwise
    */
-  def areInd(a: Array[Vector]): Boolean ={
+  def isInd(a: Array[Vector]): Boolean ={
+    val asize = a.size
+	val vectsize = a(0).size
+	for(i <- 0 until asize)
+	  assert(a(i).size == vectsize, "The vectors do not all have the same dimension!")
     val used = transposeM(a)
 	val sz = used.size
 	val vect0 = new Array[Double](sz)
@@ -1035,7 +1039,7 @@ class MVOperations{
    * @return the orthonormal set of vectors computed
    */
   def orthGrSch(a: Array[Vector]): Array[Vector] ={
-    assert(areInd(a) == true, "The set should contain linearly independent vectors!")
+    assert(isInd(a) == true, "The set should contain linearly independent vectors!")
     val asize = a.size
 	val vsize = a(0).size
 	assert(asize <= vsize, "The size of the set should be less than or equal to the size of the vectors it has!")
