@@ -1,9 +1,0 @@
-columnSpace
-isOnetoOneLinTr
-isOntoLinTr
-kernelLintTr
-nullityLinTr
-nullspace
-rangeLinTr
-rankLinTr
-rowSpace
