@@ -954,7 +954,16 @@ class MVOperations{
   def sysSolve(a: Matrix, b: Vector): (Array[Vector],Vector) ={
      return solver(a,b,0)
   }
-   
+
+  /** System of linear equations solver without messages printed.
+   * @param a the matrix of coefficients
+   * @param b the vector of constant terms
+   * @return the general solution to the system in a tuple (basis for the homogenuous system solution,a solution to the inhomogenuous system)
+   */
+  def noMsgSysSolve(a: Matrix, b: Vector): (Array[Vector],Vector) ={
+     return solver(a,b,-1)
+  }
+  
   /** Check if a set of vectors is linearly independent.
    * @param a the array of vectors for which we check independence
    * @return true if the vectors are linerly independent, false otherwise

@@ -1147,6 +1147,109 @@ class Testsuite extends FunSuite{
     intercept[AssertionError]{u.sysSolve(n,r)}
   }
   
+  test("Tests for solving a linear system without message printing(noMsgSysSolve)"){
+
+	val (base1,s1) = u.noMsgSysSolve(sys1._1,sys1._2)
+	assert((base1.size == 0) === true)
+	assert(u.isEqualV(s1,Array(3.0,4,-2)) === true)
+
+	val (base2,s2) = u.noMsgSysSolve(sys2._1,sys2._2)
+	assert((base2.size == 0) === true)
+	assert(u.isEqualV(s2,Array(3.0,-1)) === true)
+
+	val (base3,s3) = u.noMsgSysSolve(sys3._1,sys3._2)
+	assert((base3.size == 0) === true)
+	assert(u.isEqualV(s3,Array(1.0,2,1)) === true)
+
+	val (base4,s4) = u.noMsgSysSolve(sys4._1,sys4._2)
+	assert((base4.size == 0) === true)
+	assert((s4.size == 0) === true)
+
+	val (base5,s5) = u.noMsgSysSolve(sys5._1,sys5._2)
+	assert((base5.size == 1) === true)
+	assert(u.isEqualV(base5(0),Array(1.0,0.5,1)) === true)
+	assert(u.isEqualV(s5,Array(1.0,1,0)) === true)
+	
+	val (base6,s6) = u.noMsgSysSolve(sys6._1,sys6._2)
+	assert((base6.size == 1) === true)
+	assert(u.isEqualV(base6(0),Array(-0.5,-1.5,1)) === true)
+	assert(u.isEqualV(s6,Array(0.0,0,0)) === true)
+
+	val (base7,s7) = u.noMsgSysSolve(sys7._1,sys7._2)
+	assert((base7.size == 2) === true)
+	assert(u.isEqualV(base7(0),Array(2.0,1,0)) === true)
+	assert(u.isEqualV(base7(1),Array(-3,0,1)) === true)
+	assert(u.isEqualV(s7,Array(0.0,0,0)) === true)
+
+	val (base8,s8) = u.noMsgSysSolve(sys8._1,sys8._2)
+	assert((base8.size == 1) === true)
+	assert(u.isEqualV(base8(0),Array(2.0,-4,1)) === true)
+	assert(u.isEqualV(s8,Array(3.0,5,0)) === true)
+
+	val (base9,s9) = u.noMsgSysSolve(sys9._1,sys9._2)
+	assert((base9.size == 0) === true)
+	assert((s9.size == 0) === true)
+
+	val (base10,s10) = u.noMsgSysSolve(sys10._1,sys10._2)
+	assert((base10.size == 0) === true)
+	assert(u.isEqualV(s10,Array(2.0,5,1)) === true)
+
+	val (base11,s11) = u.noMsgSysSolve(sys11._1,sys11._2)
+	assert((base11.size == 2) === true)
+	assert(u.isEqualV(base11(0),Array(2.0,-5,-2,1,0)) === true)
+	assert(u.isEqualV(base11(1),Array(-1,1,1,0,1)) === true)
+	assert(u.isEqualV(s11,Array(1.0,3,2,0,0)) === true)
+
+	val (base12,s12) = u.noMsgSysSolve(sys12._1,sys12._2)
+	assert((base12.size == 1) === true)
+	assert(u.isEqualV(base12(0),Array(-1.0,-1,1)) === true)
+	assert(u.isEqualV(s12,Array(0.0,1,0)) === true)
+
+	val (base13,s13) = u.noMsgSysSolve(sys13._1,sys13._2)
+	assert((base13.size == 1) === true)
+	assert(u.isEqualV(base13(0),Array(-9.0/7,10.0/7,1)) === true)
+	assert(u.isEqualV(s13,Array(9.0/7,-17.0/7,0)) === true)
+
+	val (base14,s14) = u.noMsgSysSolve(sys14._1,sys14._2)
+	assert((base14.size == 1) === true)
+	assert(u.isEqualV(base14(0),Array(-1.0,0,1,0)) === true)
+	assert(u.isEqualV(s14,Array(2.0,2,0,2)) === true)
+
+	val (base15,s15) = u.noMsgSysSolve(sys15._1,sys15._2)
+	assert((base15.size == 0) === true)
+	assert(u.isEqualV(s15,Array(1.0,-5,3)) === true)
+
+	val (base16,s16) = u.noMsgSysSolve(sys16._1,sys16._2)
+	assert((base16.size == 0) === true)
+	assert(u.isEqualV(s16,Array(1.0,1,1)) === true)
+
+	val (base17,s17) = u.noMsgSysSolve(sys17._1,sys17._2)
+	assert((base17.size == 1) === true)
+	assert(u.isEqualV(base17(0),Array(2.0,-3,1,0)) === true)
+	assert(u.isEqualV(s17,Array(0.0,0,0,0)) === true)
+
+	val (base18,s18) = u.noMsgSysSolve(sys18._1,sys18._2)
+	assert((base18.size == 2) === true)
+	assert(u.isEqualV(base18(0),Array(0.0,-1,-1,1,0)) === true)
+	assert(u.isEqualV(base18(1),Array(-2.0,0,0,0,1)) === true)
+	assert(u.isEqualV(s18,Array(0.0,0,0,0,0)) === true)
+
+	val (base19,s19) = u.noMsgSysSolve(sys19._1,sys19._2)
+	assert((base19.size == 2) === true)
+	assert(u.isEqualV(base19(0),Array(-2.0,-3,1,0,0)) === true)
+	assert(u.isEqualV(base19(1),Array(1.0,-2.0,0,-3.0,1)) === true)
+	assert(u.isEqualV(s19,Array(0.0,0,0,0,0)) === true)
+	
+	val (base20,s20) = u.noMsgSysSolve(sys20._1,sys20._2)
+	assert((base20.size == 0) === true)
+	assert(u.isEqualV(s20,Array(-6.5,27.5,-12.5)) === true)
+	
+    intercept[AssertionError]{u.noMsgSysSolve(a,c)}
+    intercept[AssertionError]{u.noMsgSysSolve(f,d)}
+    intercept[AssertionError]{u.noMsgSysSolve(k,o)}
+    intercept[AssertionError]{u.noMsgSysSolve(n,r)}
+  }
+  
   test("Tests for checking if a set of vectors is linearly independent (isInd)"){
     val s1 = u.isInd(linind1)
     val s2 = u.isInd(linind2)
