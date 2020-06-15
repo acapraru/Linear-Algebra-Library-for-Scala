@@ -4,7 +4,7 @@ class numRootFinding{
 
   private val u = new MVOperations
 
-  // general tolerance defined by 2*epsilon or 4*epsilon with e the Machine epsilon
+  // general tolerance defined by 2*epsilon or 4*epsilon with epsilon the Machine Epsilon
 
   // Function to check if two real values are equal
   private def isEqual(x: Double,y: Double): Boolean = return(Math.abs(x-y)<1e-12)
