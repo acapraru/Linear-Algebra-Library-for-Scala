@@ -1161,4 +1161,79 @@ class MVOperations{
 	else return false
   }
   
+  /** QR decomposition of a matrix.
+   * @param a the matrix for which we calculate the QR decomposition
+   * @return a pair of matrices s.t. Q - orthogonal, R - upper-triangular and A = Q*R
+   */
+  def qr(a: Matrix): (Matrix,Matrix) ={
+    val ac = getColumns(a); val ar = getRows(a)
+	val csp = columnSpace(a)
+	val sz = csp.size
+	assert(ac == sz, "The matrix should have full column rank!")
+	val setvectors = transposeM(a)
+	val orthsol = orthGrSch(setvectors)
+	val q = transposeM(orthsol)
+	val r = Array.ofDim[Double](ac,ac)
+	for(i <- 0 until ar)
+	  for(j <- i until ac)
+	    r(i)(j) = mulV(orthsol(i),setvectors(j))
+	return (q,r)
+  }
+  
+  // Function to check if a matrix is upper-triangular
+  private def isUpperTr(a: Matrix): Boolean ={
+    val ra = getRows(a); val ca = getColumns(a)
+    assert(ra == ca, "The matrix should be square!")
+    for(i<- 0 until ra)
+      for(j <- 0 until i)
+	    if(!is0(a(i)(j))) return false
+    return true
+  }
+  
+  // Set to an integer if the precision of a Double number is less than 1e-11
+  private def setInteger(x: Double): Double = if(Math.abs(x-x.round.toDouble)<1e-11) x.round.toDouble else x
+  
+  /** Find the eigenvalues of a full-rank square matrix.
+   * @param a the matrix for which we search for eigenvalues
+   * @return the eigenvalues in a vector (in increasing order)
+   */
+  def eigvals(a: Matrix): Vector ={
+    val ra = getRows(a); val ca = getColumns(a)
+    assert(ra == ca, "The matrix should be square!")
+    var used = copyM(a)
+	var n = 0
+	val N = 1000
+	while(n < N && !isUpperTr(used)){
+	  val (qdec,rdec) = qr(used)
+	  used = mulM(rdec,qdec)
+	  n += 1
+	}
+	assert(n < N, "The matrix did not converge to the solution")
+	var sol = new Array[Double](ra)
+	for(i <- 0 until ra) sol(i) = setInteger(used(i)(i))
+	scala.util.Sorting.quickSort(sol)
+	return sol
+  }
+  
+  /** Find the eigenvectors of a full-rank square matrix.
+   * @param a the matrix for which we search for eigenvalues
+   * @return an array of tuples of type (eigenvalue,corresponding eigenvectors) (eigenvalues in increasing order)
+   */
+  def eigvectors(a: Matrix): Array[(Double,Vector)] ={
+    val solvalues = eigvals(a)
+	var sol = new Array[(Double,Array[Double])](0)
+	val asize = getRows(a)
+	val identity = genId(asize)
+	for(i <- 0 until asize){
+	  val touse = subM(a,ctmulM(solvalues(i),identity))
+	  val solsys = nullspace(touse)
+	  val syssize = solsys.size
+	  assert(syssize != 0, s"No solution for the eigenvector corresponding to the eigenvalue ${solvalues(i)}!")
+	  var vectcorr = new Array[Double](asize)
+	  for(j <- 0 until syssize) vectcorr = addV(vectcorr,solsys(j))
+	  sol :+= (solvalues(i),vectcorr)
+	}
+	return sol
+  }
+  
 }

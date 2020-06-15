@@ -186,6 +186,25 @@ class Testsuite extends FunSuite{
   val lintr12 = Array(Array(1.0,1,0),Array(0.0,1,1))
   val lintr13 = Array(Array(0.0,0,1),Array(0.0,0,0),Array(1.0,1,0),Array(0.0,0,0))
   val lintr14 = Array(Array(1.0,0,-1),Array(1.0,2,-1),Array(1.0,0,-1))
+  val qr1 = Array(Array(12.0,-51,4),Array(6.0,167,-68),Array(-4.0,24,-41))
+  val qr2 = Array(Array(1.0,1,0),Array(1.0,0,1),Array(0.0,1,1))
+  val qr3 = Array(Array(2.0,0,1),Array(-1.0,2,3),Array(1.0,0,2))
+  val qr4 = Array(Array(1.0,-1,4),Array(1.0,4,-2),Array(1.0,4,2),Array(1.0,-1,0))
+  val qr5 = Array(Array(2.0,-1,1),Array(1.0,3,-2),Array(0.0,1,-2))
+  val eig1 = Array(Array(2.0,0),Array(0.0,5))
+  val eig2 = Array(Array(3.0,0,0),Array(0.0,4,0),Array(0.0,0,7))
+  val eig3 = Array(Array(5.0,1),Array(4.0,5))
+  val eig4 = Array(Array(3.0,5),Array(3.0,1))
+  val eig5 = Array(Array(0.0,1,2),Array(-4.0,1,4),Array(-5.0,1,7))
+  val eig6 = Array(Array(4.0,1,6),Array(0.0,2,3),Array(0.0,0,9))
+  val eig7 = Array(Array(3.0,1),Array(2.0,4))
+  val eig8 = Array(Array(1.0,3),Array(4.0,5))
+  val eig9 = Array(Array(2.0,6),Array(1.0,3))
+  val eig10 = Array(Array(4.0,1,3),Array(1.0,3,1),Array(2.0,0,5))
+  val eig11 = Array(Array(2.0,2),Array(1.0,3))
+  val eig12 = Array(Array(3.0,4,2),Array(1.0,6,2),Array(1.0,4,4))
+  val eig13 = Array(Array(2.0,1,3,4),Array(0.0,2,1,3),Array(2.0,1,6,5),Array(1.0,2,4,8))
+  val eig14 = Array(Array(1.0,-3,3),Array(3.0,-5,3),Array(6.0,-6,4))
   
   test("Tests for equality of two matrices (isEqualM)"){
     assert(u.isEqualM(a,a) === true)
@@ -1705,6 +1724,150 @@ class Testsuite extends FunSuite{
 	assert((s12 == false) === true)
 	assert((s13 == false) === true)
 	assert((s14 == false) === true)
+  }
+  
+  test("Tests for the QR decomposition of a matrix (qr)"){
+    val (q1,r1) = u.qr(qr1)
+	assert(u.isEqualM(q1,Array(Array(6.0/7,-69.0/175,-58.0/175),Array(3.0/7,158.0/175,6.0/175),Array(-2.0/7,6.0/35,-33.0/35))) === true)
+	assert(u.isEqualM(r1,Array(Array(14.0,21,-14),Array(0.0,175,-70),Array(0.0,0,35))) === true)
+	assert(u.isEqualM(qr1,u.mulM(q1,r1)) === true)
+    val (q2,r2) = u.qr(qr2)
+	assert(u.isEqualM(q2,Array(Array(1.0/Math.sqrt(2),1.0/Math.sqrt(6),-1.0/Math.sqrt(3)),Array(1.0/Math.sqrt(2),-1.0/Math.sqrt(6),1.0/Math.sqrt(3)),Array(0.0,2.0/Math.sqrt(6),1.0/Math.sqrt(3)))) === true)
+	assert(u.isEqualM(r2,Array(Array(2.0/Math.sqrt(2),1.0/Math.sqrt(2),1.0/Math.sqrt(2)),Array(0.0,3.0/Math.sqrt(6),1.0/Math.sqrt(6)),Array(0.0,0.0,2.0/Math.sqrt(3)))) === true)
+	assert(u.isEqualM(qr2,u.mulM(q2,r2)) === true)
+    val (q3,r3) = u.qr(qr3)
+	assert(u.isEqualM(q3,Array(Array(2.0/Math.sqrt(6),2.0/Math.sqrt(30),-1.0/Math.sqrt(5)),Array(-1.0/Math.sqrt(6),5.0/Math.sqrt(30),0),Array(1.0/Math.sqrt(6),1.0/Math.sqrt(30),2.0/Math.sqrt(5)))) === true)
+	assert(u.isEqualM(r3,Array(Array(Math.sqrt(6),-2.0/Math.sqrt(6),4.0/Math.sqrt(6)-3.0/Math.sqrt(6)),Array(0.0,10.0/Math.sqrt(30),4.0/Math.sqrt(30)+15.0/Math.sqrt(30)),Array(0.0,0.0,3.0/Math.sqrt(5)))) === true)
+	assert(u.isEqualM(qr3,u.mulM(q3,r3)) === true)
+    val (q4,r4) = u.qr(qr4)
+	assert(u.isEqualM(q4,Array(Array(0.5,-0.5,0.5),Array(0.5,0.5,-0.5),Array(0.5,0.5,0.5),Array(0.5,-0.5,-0.5))) === true)
+	assert(u.isEqualM(r4,Array(Array(2.0,3,2),Array(0.0,5,-2),Array(0.0,0,4))) === true)
+	assert(u.isEqualM(qr4,u.mulM(q4,r4)) === true)
+    val (q5,r5) = u.qr(qr5)
+	assert(u.isEqualM(q5,Array(Array(2*Math.sqrt(5)/5,-7.0*Math.sqrt(30)/90,-Math.sqrt(6)/18),Array(Math.sqrt(5)/5,7.0*Math.sqrt(30)/45,Math.sqrt(6)/9),Array(0.0,Math.sqrt(30)/18,-7.0*Math.sqrt(6)/18))) === true)
+	assert(u.isEqualM(r5,Array(Array(Math.sqrt(5),Math.sqrt(5)/5,0),Array(0.0,3.0*Math.sqrt(30)/5,-Math.sqrt(30)/2),Array(0.0,0,Math.sqrt(6)/2))) === true)
+	assert(u.isEqualM(qr5,u.mulM(q5,r5)) === true)
+    intercept[AssertionError]{u.qr(Array(Array(1.0,2,3),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.qr(Array(Array(0.0,0,0),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.qr(Array(Array(1.0,2),Array(2.0,4)))}
+  }
+  
+  // Function to check for weaker equality between Doubles
+  def eqDoubleWeaker(x:Double, y: Double): Boolean = return (Math.abs(x-y)<1e-10)
+  
+  // Function to check for weaker equality between Vetors
+  def isEqualVWeaker(x: Array[Double], y: Array[Double]): Boolean = {
+    val xsize = x.size
+	val ysize = y.size
+	if(xsize != ysize) return false
+	for(i <- 0 until xsize) if (!eqDoubleWeaker(x(i),y(i))) return false
+	return true
+  }
+  
+  test("Tests for the eigenvalues finder for a matrix (eigvals)"){
+    val s1 = u.eigvals(qr1)
+	assert(isEqualVWeaker(s1,Array(-34.19667500146917,16.05999093950038,156.13668406196879)) === true)
+    val s2 = u.eigvals(qr3)
+	assert(isEqualVWeaker(s2,Array(1.0,2,3)) === true)
+    val s3 = u.eigvals(eig1)
+	assert(isEqualVWeaker(s3,Array(2.0,5)) === true)
+    val s4 = u.eigvals(eig2)
+	assert(isEqualVWeaker(s4,Array(3.0,4,7)) === true)
+    val s5 = u.eigvals(eig3)
+	assert(isEqualVWeaker(s5,Array(3.0,7)) === true)
+    val s6 = u.eigvals(eig4)
+	assert(isEqualVWeaker(s6,Array(-2.0,6)) === true)
+    val s7 = u.eigvals(eig5)
+	assert(isEqualVWeaker(s7,Array(1.0,2,5)) === true)
+    val s8 = u.eigvals(eig6)
+	assert(isEqualVWeaker(s8,Array(2.0,4,9)) === true)
+    val s9 = u.eigvals(eig7)
+	assert(isEqualVWeaker(s9,Array(2.0,5)) === true)
+    val s10 = u.eigvals(eig8)
+	assert(isEqualVWeaker(s10,Array(-1.0,7)) === true)
+	intercept[AssertionError]{u.eigvals(eig9)}
+    val s11 = u.eigvals(eig10)
+	assert(isEqualVWeaker(s11,Array(1.80741759643275,3,7.19258240356725)) === true)
+    val s12 = u.eigvals(eig11)
+	assert(isEqualVWeaker(s12,Array(1.0,4)) === true)
+    val s13 = u.eigvals(eig12)
+	assert(isEqualVWeaker(s13,Array(2.0,2,9)) === true)
+    val s14 = u.eigvals(eig13)
+	assert(isEqualVWeaker(s14,Array(1.0,1,2.90098048640722,13.09901951359278)) === true)
+    val s15 = u.eigvals(eig14)
+	assert(isEqualVWeaker(s15,Array(-2.0,-2,4)) === true)
+    intercept[AssertionError]{u.eigvals(Array(Array(1.0,2,3),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.eigvals(Array(Array(0.0,0,0),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.eigvals(Array(Array(1.0,2),Array(2.0,4)))}
+	intercept[AssertionError]{u.eigvals(qr4)}
+	intercept[AssertionError]{u.eigvals(a)}
+	intercept[AssertionError]{u.eigvals(e)}
+    intercept[AssertionError]{u.eigvals(qr2)}
+    intercept[AssertionError]{u.eigvals(Array(Array(0.0,1),Array(1.0,0)))}
+  }
+  
+  test("Tests for the eigenvectors finder for a matrix (eigvectors)"){
+    intercept[AssertionError]{u.eigvectors(qr1)}
+    val s2 = u.eigvectors(qr3)
+	assert(isEqualVWeaker(s2(0)._2,Array(-1.0,-4,1)) === true)
+	assert(isEqualVWeaker(s2(1)._2,Array(0.0,1,0)) === true)
+	assert(isEqualVWeaker(s2(2)._2,Array(1.0,2,1)) === true)
+    val s3 = u.eigvectors(eig1)
+	assert(isEqualVWeaker(s3(0)._2,Array(1.0,0)) === true)
+	assert(isEqualVWeaker(s3(1)._2,Array(0.0,1)) === true)
+    val s4 = u.eigvectors(eig2)
+	assert(isEqualVWeaker(s4(0)._2,Array(1.0,0,0)) === true)
+	assert(isEqualVWeaker(s4(1)._2,Array(0.0,1,0)) === true)
+	assert(isEqualVWeaker(s4(2)._2,Array(0.0,0,1)) === true)
+    val s5 = u.eigvectors(eig3)
+	assert(isEqualVWeaker(s5(0)._2,Array(-0.5,1)) === true)
+	assert(isEqualVWeaker(s5(1)._2,Array(0.5,1)) === true)
+    val s6 = u.eigvectors(eig4)
+	assert(isEqualVWeaker(s6(0)._2,Array(-1.0,1)) === true)
+	assert(isEqualVWeaker(s6(1)._2,Array(5.0/3,1)) === true)
+    val s7 = u.eigvectors(eig5)
+	assert(isEqualVWeaker(s7(0)._2,Array(1.0,-1,1)) === true)
+	assert(isEqualVWeaker(s7(1)._2,Array(1.0,0,1)) === true)
+	assert(isEqualVWeaker(s7(2)._2,Array(0.5,0.5,1)) === true)
+    val s8 = u.eigvectors(eig6)
+	assert(isEqualVWeaker(s8(0)._2,Array(-0.5,1,0)) === true)
+	assert(isEqualVWeaker(s8(1)._2,Array(1.0,0,0)) === true)
+	assert(isEqualVWeaker(s8(2)._2,Array(1.28571428571429,0.42857142857143,1)) === true)
+    val s9 = u.eigvectors(eig7)
+	assert(isEqualVWeaker(s9(0)._2,Array(-1.0,1)) === true)
+	assert(isEqualVWeaker(s9(1)._2,Array(0.5,1)) === true)
+    val s10 = u.eigvectors(eig8)
+	assert(isEqualVWeaker(s10(0)._2,Array(-1.5,1)) === true)
+	assert(isEqualVWeaker(s10(1)._2,Array(0.5,1)) === true)
+	intercept[AssertionError]{u.eigvectors(eig9)}
+    val s11 = u.eigvectors(eig10)
+	assert(isEqualVWeaker(s11(0)._2,Array(-1.59629120178363,0.5,1)) === true)
+	assert(isEqualVWeaker(s11(1)._2,Array(-1.0,-2,1)) === true)
+	assert(isEqualVWeaker(s11(2)._2,Array(1.09629120178363,0.5,1)) === true)
+    val s12 = u.eigvectors(eig11)
+	assert(isEqualVWeaker(s12(0)._2,Array(-2.0,1)) === true)
+	assert(isEqualVWeaker(s12(1)._2,Array(1.0,1)) === true)
+    val s13 = u.eigvectors(eig12)
+	assert(isEqualVWeaker(s13(0)._2,Array(-6.0,1,1)) === true)
+	assert(isEqualVWeaker(s13(1)._2,Array(-6.0,1,1)) === true)
+	assert(isEqualVWeaker(s13(2)._2,Array(1.0,1,1)) === true)
+    val s14 = u.eigvectors(eig13)
+	assert(isEqualVWeaker(s14(0)._2,Array(-3.0,-4,1,1)) === true)
+	assert(isEqualVWeaker(s14(1)._2,Array(-3.0,-4,1,1)) === true)
+	assert(isEqualVWeaker(s14(2)._2,Array(-0.28172904669025,1.28172904669025,-1.84518714007076,1)) === true)
+	assert(isEqualVWeaker(s14(3)._2,Array(0.64536541032662,0.35463458967338,0.93609623097985,1)) === true)
+    val s15 = u.eigvectors(eig14)
+	assert(isEqualVWeaker(s15(0)._2,Array(0.0,1,1)) === true)
+	assert(isEqualVWeaker(s15(1)._2,Array(0.0,1,1)) === true)
+	assert(isEqualVWeaker(s15(2)._2,Array(0.5,0.5,1)) === true)
+    intercept[AssertionError]{u.eigvectors(Array(Array(1.0,2,3),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.eigvectors(Array(Array(0.0,0,0),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.eigvectors(Array(Array(1.0,2),Array(2.0,4)))}
+	intercept[AssertionError]{u.eigvectors(qr4)}
+	intercept[AssertionError]{u.eigvectors(a)}
+	intercept[AssertionError]{u.eigvectors(e)}
+    intercept[AssertionError]{u.eigvectors(qr2)}
+    intercept[AssertionError]{u.eigvectors(Array(Array(0.0,1),Array(1.0,0)))}
   }
   
 }
