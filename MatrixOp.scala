@@ -1193,7 +1193,7 @@ class MVOperations{
   // Set to an integer if the precision of a Double number is less than 1e-11
   private def setInteger(x: Double): Double = if(Math.abs(x-x.round.toDouble)<1e-11) x.round.toDouble else x
   
-  /** Find the eigenvalues of a full-rank square matrix.
+  /** Find the eigenvalues of a full-rank (symmetric) square matrix.
    * @param a the matrix for which we search for eigenvalues
    * @return the eigenvalues in a vector (in increasing order)
    */
@@ -1208,16 +1208,16 @@ class MVOperations{
 	  used = mulM(rdec,qdec)
 	  n += 1
 	}
-	assert(n < N, "The matrix did not converge to the solution")
+	assert(n < N, "The matrix did not converge to the solution! (Try a symmetric one if not already!)") // should always converge for symmetric matrices
 	var sol = new Array[Double](ra)
 	for(i <- 0 until ra) sol(i) = setInteger(used(i)(i))
 	scala.util.Sorting.quickSort(sol)
 	return sol
   }
   
-  /** Find the eigenvectors of a full-rank square matrix.
+  /** Find the eigenvectors of a full-rank (symmetric) square matrix.
    * @param a the matrix for which we search for eigenvalues
-   * @return an array of tuples of type (eigenvalue,corresponding eigenvectors) (eigenvalues in increasing order)
+   * @return an array of tuples of type (eigenvalue, corresponding eigenvectors) (eigenvalues in increasing order)
    */
   def eigvectors(a: Matrix): Array[(Double,Vector)] ={ // Not working very well for not-so-nice eigenvalues because of the approximations
     val solvalues = eigvals(a)
@@ -1236,29 +1236,33 @@ class MVOperations{
 	return sol
   }
   
-/*  The eigenvectors are the columns of toprint
-  def eigv2(a: Matrix): Array[Double] ={
+  
+  /** Find the normalized eigenvectors of a full-rank (symmetric) square matrix using the QR algorithm.
+   * @param a the matrix for which we search for eigenvalues
+   * @return an array of tuples of type (eigenvalue, corresponding eigenvectors) (eigenvalues in increasing order)
+   */
+  def eigvectorsNorm(a: Matrix): Array[(Double,Vector)] ={ // Working also for not-so-nice eigenvalues
     val ra = getRows(a); val ca = getColumns(a)
     assert(ra == ca, "The matrix should be square!")
     var used = copyM(a)
 	var n = 0
 	val N = 1000
-	var toprint = genId(ra)
+	var qsolvect = genId(ra)
 	while(n < N && !isUpperTr(used)){
 	  val (qdec,rdec) = qr(used)
 	  used = mulM(rdec,qdec)
 	  n += 1
-	  toprint = mulM(toprint,qdec)
+	  qsolvect = mulM(qsolvect,qdec)
 	}
-	//for(i <- 0 until ra)
-	//  for(j <- 0 until ca) toprint(i)(j) = setInteger(1.0/toprint(ra-1)(j) * toprint(i)(j))
-	printM(toprint)
-	assert(n < N, "The matrix did not converge to the solution")
-	var sol = new Array[Double](ra)
-	for(i <- 0 until ra) sol(i) = setInteger(used(i)(i))
-	scala.util.Sorting.quickSort(sol)
+	assert(n < N, "The matrix did not converge to the solution! (Try a symmetric one if not already!)")
+	qsolvect = transposeM(qsolvect)
+	 for (i <- 0 until ra)
+	  for (j <- 0 until ca) if (is0(qsolvect(i)(j))) qsolvect(i)(j) = 0.0
+	var sol = new Array[(Double,Array[Double])](0)
+	for(i <- 0 until ra) sol :+= (setInteger(used(i)(i)),qsolvect(i))
+	sol = sol.sortWith(_._1<_._1)
 	return sol
   }
-*/
+
 
 }

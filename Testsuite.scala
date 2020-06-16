@@ -205,6 +205,9 @@ class Testsuite extends FunSuite{
   val eig12 = Array(Array(3.0,4,2),Array(1.0,6,2),Array(1.0,4,4))
   val eig13 = Array(Array(2.0,1,3,4),Array(0.0,2,1,3),Array(2.0,1,6,5),Array(1.0,2,4,8))
   val eig14 = Array(Array(1.0,-3,3),Array(3.0,-5,3),Array(6.0,-6,4))
+  val forsymm1 = Array(Array(1.0,2,3),Array(2.0,1,3),Array(3.0,3,2))
+  val forsymm2 = Array(Array(1.0,3),Array(3.0,99))
+  val forsymm3 = Array(Array(2.0,3,4),Array(3.0,999,1),Array(4.0,1,301))
   
   test("Tests for equality of two matrices (isEqualM)"){
     assert(u.isEqualM(a,a) === true)
@@ -1868,6 +1871,69 @@ class Testsuite extends FunSuite{
 	intercept[AssertionError]{u.eigvectors(e)}
     intercept[AssertionError]{u.eigvectors(qr2)}
     intercept[AssertionError]{u.eigvectors(Array(Array(0.0,1),Array(1.0,0)))}
+  }
+  
+  test("Tests for the normalized eigenvectors finder for a matrix (eigvectorsNorm)"){
+    val s1 = u.eigvectorsNorm(symm1)
+	assert(eqDouble(u.lengthV(s1(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s1(1)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm1,u.ctmulM(s1(0)._1,u.genId(2))),s1(0)._2),Array(0.0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm1,u.ctmulM(s1(1)._1,u.genId(2))),s1(1)._2),Array(0.0,0)) === true)
+    val s2 = u.eigvectorsNorm(symm2)
+	assert(eqDouble(u.lengthV(s2(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s2(2)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s2(1)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm2,u.ctmulM(s2(0)._1,u.genId(3))),s2(0)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm2,u.ctmulM(s2(1)._1,u.genId(3))),s2(1)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm2,u.ctmulM(s2(2)._1,u.genId(3))),s2(2)._2),Array(0.0,0,0)) === true)
+    val s3 = u.eigvectorsNorm(symm3)
+	assert(eqDouble(u.lengthV(s3(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s3(1)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s3(2)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s3(3)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm3,u.ctmulM(s3(0)._1,u.genId(4))),s3(0)._2),Array(0.0,0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm3,u.ctmulM(s3(1)._1,u.genId(4))),s3(1)._2),Array(0.0,0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm3,u.ctmulM(s3(2)._1,u.genId(4))),s3(2)._2),Array(0.0,0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(symm3,u.ctmulM(s3(3)._1,u.genId(4))),s3(3)._2),Array(0.0,0,0,0)) === true)
+    val s4 = u.eigvectorsNorm(eig1)
+	assert(eqDouble(u.lengthV(s4(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s4(1)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(eig1,u.ctmulM(s4(0)._1,u.genId(2))),s4(0)._2),Array(0.0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(eig1,u.ctmulM(s4(1)._1,u.genId(2))),s4(1)._2),Array(0.0,0)) === true)
+    val s5 = u.eigvectorsNorm(eig2)
+	assert(eqDouble(u.lengthV(s5(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s5(1)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s5(2)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(eig2,u.ctmulM(s5(0)._1,u.genId(3))),s5(0)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(eig2,u.ctmulM(s5(1)._1,u.genId(3))),s5(1)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(eig2,u.ctmulM(s5(2)._1,u.genId(3))),s5(2)._2),Array(0.0,0,0)) === true)
+    val s6 = u.eigvectorsNorm(forsymm1)
+	assert(eqDouble(u.lengthV(s6(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s6(1)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s6(2)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm1,u.ctmulM(s6(0)._1,u.genId(3))),s6(0)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm1,u.ctmulM(s6(1)._1,u.genId(3))),s6(1)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm1,u.ctmulM(s6(2)._1,u.genId(3))),s6(2)._2),Array(0.0,0,0)) === true)
+    val s7 = u.eigvectorsNorm(forsymm2)
+	assert(eqDouble(u.lengthV(s7(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s7(1)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm2,u.ctmulM(s7(0)._1,u.genId(2))),s7(0)._2),Array(0.0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm2,u.ctmulM(s7(1)._1,u.genId(2))),s7(1)._2),Array(0.0,0)) === true)
+    val s8 = u.eigvectorsNorm(forsymm3)
+	assert(eqDouble(u.lengthV(s8(0)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s8(1)._2),1.0) === true)
+	assert(eqDouble(u.lengthV(s8(2)._2),1.0) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm3,u.ctmulM(s8(0)._1,u.genId(3))),s8(0)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm3,u.ctmulM(s8(1)._1,u.genId(3))),s8(1)._2),Array(0.0,0,0)) === true)
+	assert(isEqualVWeaker(u.mulMV(u.subM(forsymm3,u.ctmulM(s8(2)._1,u.genId(3))),s8(2)._2),Array(0.0,0,0)) === true)
+    intercept[AssertionError]{u.eigvectorsNorm(Array(Array(1.0,2,3),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.eigvectorsNorm(Array(Array(0.0,0,0),Array(2.0,4,5),Array(3.0,6,7)))}
+    intercept[AssertionError]{u.eigvectorsNorm(Array(Array(1.0,2),Array(2.0,4)))}
+	intercept[AssertionError]{u.eigvectorsNorm(qr4)}
+	intercept[AssertionError]{u.eigvectorsNorm(a)}
+	intercept[AssertionError]{u.eigvectorsNorm(e)}
+    intercept[AssertionError]{u.eigvectorsNorm(qr2)}
+    intercept[AssertionError]{u.eigvectorsNorm(Array(Array(0.0,1),Array(1.0,0)))}
   }
   
 }
