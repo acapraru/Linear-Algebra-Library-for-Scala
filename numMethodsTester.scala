@@ -10,16 +10,17 @@ object numMethTester{
   def df5(x:Double): Double = 2*x // Newton's 1D
   
   def f6 (x:Double):Double = x*x*x*x - 4*x*x +4 // Newton's 1D + secant
-  def df6 (x:Double):Double = 4 *x*x*x - 8*x // Newton's 1D + secant
-  def f7(x:Double):Double = Math.pow(x-1,50)*Math.pow(x+1,50) // Newton's 1D + secant
-  def df7(x:Double):Double = 100*x*Math.pow(x-1,49)*Math.pow(x+1,49) // Newton's 1D + secant
+  def df6 (x:Double):Double = 4 *x*x*x - 8*x // Newton's 1D
+  def f7(x:Double):Double = Math.pow(x-1,50)*Math.pow(x+1,50) // Newton's 1D + secant (failing)
+  def df7(x:Double):Double = 100*x*Math.pow(x-1,49)*Math.pow(x+1,49) // Newton's 1D (failing)
   
-  def f8(x:Double): Double = Math.cos(x) - x // Newton's 1D + secant
+  def f8(x:Double): Double = Math.cos(x) - x // bisection + Newton's 1D + secant
   def df8(x:Double): Double = -Math.sin(x) - 1 // Newton's 1D
-  def f9(x:Double): Double = Math.pow(x,1.0/3) // Newton's 1D failing
-  def df9(x:Double): Double = -1.0/3*Math.pow(x,-2.0/3) // Newton's 1D failing
+  def f9(x:Double): Double = Math.pow(x,1.0/3) // Newton's 1D failing (because Math.pow returns NaN for negative values)
+  def df9(x:Double): Double = 1.0/3*Math.pow(x,-2.0/3) // Newton's 1D failing (because Math.pow returns NaN for negative values)
   
-  def f10(x:Double): Double = x*x*x - x - 1 // secant
+  def f10(x:Double): Double = x*x*x - x - 1 // secant + Newton's 1D
+  def df10(x:Double): Double = 3*x*x - 1 // Newton's 1D
   def f11(x:Double):Double = Math.cos(x) + 2 * Math.sin(x) + x*x // secant
   
   def f12(xs:Array[Double]): Array[Double] ={
@@ -213,6 +214,18 @@ object numMethTester{
 	println("Secant:\t\t"+u2.secant(f6,1,200,1000,1e-14)) 
 	println
 
+	println("For the function f8 (cos(x)-x):")
+	println("Bisection:\t"+u2.bisection(f8,-2,1,1000,1e-14))
+	println("Newton:\t\t"+u2.newton1D(f8,df8,1,1000,1e-14))
+	println("Secant:\t\t"+u2.secant(f8,1,10,1000,1e-14)) 
+	println
+
+	println("For the function f10 (x^3-x-1):")
+	println("Bisection:\t"+u2.bisection(f10,-1,9,1000,1e-14))
+	println("Newton:\t\t"+u2.newton1D(f10,df10,1,1000,1e-14))
+	println("Secant:\t\t"+u2.secant(f10,1,2,1000,1e-14)) 
+	println
+	
   }
 
   def main(args: Array[String]):Unit ={
