@@ -155,7 +155,6 @@ object numMethTester{
 	return Array(4*x*x*x+1,2*y-1)
   } // Gradient descent (s.p. (0,0))
 
-
   def main(args: Array[String]):Unit ={
     val u = new numIntegration
 	
