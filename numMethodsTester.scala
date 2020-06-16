@@ -21,7 +21,8 @@ object numMethTester{
   
   def f10(x:Double): Double = x*x*x - x - 1 // secant + Newton's 1D
   def df10(x:Double): Double = 3*x*x - 1 // Newton's 1D
-  def f11(x:Double):Double = Math.cos(x) + 2 * Math.sin(x) + x*x // secant
+  def f11(x:Double):Double = Math.cos(x) + 2 * Math.sin(x) + x*x // secant + Newton's 1D
+  def df11(x:Double): Double = -Math.sin(x) + 2 * Math.cos(x) + 2*x // secant + Newton's 1D
   
   def f12(xs:Array[Double]): Array[Double] ={
     assert(xs.size == 2, "The function applies to vectors of dimension 2!")
@@ -165,7 +166,7 @@ object numMethTester{
 	return Array(4*x*x*x+1,2*y-1)
   } // Gradient descent (s.p. (0,0))
 
-  def numInttest():Unit ={
+  def numInttest1D():Unit ={
     val u1 = new numIntegration
 	println
 	println ("Numerical integration in 1 dimension examples:")
@@ -188,10 +189,9 @@ object numMethTester{
 	println("Trapezium:\t"+u1.trapezium1D(f3,3.0,4.0,8))
 	println("Simpsons:\t"+u1.simpsons1D(f3,3.0,4.0,8))
 	println
-  
   }
   
-  def numRFtest():Unit ={
+  def numRFtest1D():Unit ={
 	val u2 = new numRootFinding
 	println
 	println("Numerical root-finding in 1 dimension examples:")
@@ -226,12 +226,18 @@ object numMethTester{
 	println("Secant:\t\t"+u2.secant(f10,1,2,1000,1e-14)) 
 	println
 	
+	println("For the function f11 (cos(x)+2*sin(x)+2*x):")
+	println("Bisection:\t"+u2.bisection(f11,-1,2,1000,1e-14))
+	println("Newton:\t\t"+u2.newton1D(f11,df11,1,1000,1e-14))
+	println("Secant:\t\t"+u2.secant(f11,1,10,1000,1e-14)) 
+	println
+	
   }
 
   def main(args: Array[String]):Unit ={
 	val u3 = new numOptimization
-	numInttest
-	numRFtest
+	numInttest1D
+	numRFtest1D
   }
   
 }
