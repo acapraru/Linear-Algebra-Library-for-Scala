@@ -30,7 +30,7 @@ Before every function, there is a description of what it does and what it requir
 
 In order to use the library, you need to create an object instance of the MVOperations class. You can use it in both scala command line and any project as long as the MatrixOp.scala document is in the folder the user works in.
 
-I also included the unit testing facility which can be found in the file Testsuite.scala. This is described more [here](#correctness-of-the-library-using-scalatest). To suggest how useful the library is I also implemented some numerical methods for root-finding and optimization which make use of this library. These are explained [here](#an-example-numerical-methods-implemented-using-the-library).
+I also included the unit testing facility which can be found in the file Testsuite.scala. This is described [here](#correctness-of-the-library-using-scalatest). To suggest how useful the library is I also implemented some numerical methods for root-finding and optimization which make use of this library. These are explained [here](#an-example-numerical-methods-implemented-using-the-library).
 
 ## Installation
 There is just one version of my library. It is optimized for Scala 2.13.1. To install it, it should be enough just to clone the repository to your own machine. I have already compiled the Scala files and the class files already exist. However, if the library doesn't work yet, it should be compiled one more time using the following command in the command line:.
@@ -72,7 +72,7 @@ expM | Exponentiate a square matrix
 fillM/fillV | Change a matrix/vector size
 genId | Generate an identity matrix
 inverse | Compute the inverse of a matrix
-isEqualM|isEqualV | Check for equality between matrices/vectors
+isEqualM/isEqualV | Check for equality between matrices/vectors
 isInd | Check for linearly independence of a vector set
 isOnetoOneLinTr/isOntoLinTr | Check if a linear transformation is 1-1/onto
 isOrthNormSet/isOrthSet | Check if a set of vectors is orthonormal/orthogonal
