@@ -26,7 +26,7 @@ I decided to use 2 different types for everyting I did (column vectors and 2-Dim
    */
   type Vector = Array[Double]
 ```
-Before every function, there is a description of what it does and what it requires to work. The way in which parameter and return types are described are done in such a way in which it is very easy for the user to understand how to run it, favorising the simplicity argument of my design decisions.
+Before every function, there is a description of what it does and what it requires to work. The way in which parameter and return types are described are done in such a way in which it is very easy for the user to understand how to run it, suggesting the simplicity argument of my design decisions.
 
 In order to use the library, you need to create an object instance of the MVOperations class. You can use it in both scala command line and any project as long as the MatrixOp.scala document is in the folder the user works in.
 
