@@ -94,6 +94,17 @@ transposeM/transposeV | Transpose a matrix/vector
 vecttomatr | Transform a vector into a matrix
 
 ## Correctness of the library using ScalaTest
+ScalaTest is required to check that the unit testing works!
+
+I used unit testing to test the correctness of my library. I made use of the ScalaTest testing framework. You can find the tests I made in the file Testsuite.scala. At the beginning there are more examples used in the tests and can also be copied to check different functionalities as well. I have already compiled the program and created the class files. To check that the unit testing works as expected just run the following command.
+```
+  scala org.scalatest.run Testsuite
+```
+However, in order to ensure that the unit testing is accurate you cand alo recompile the file and run it afterwards using the following 2 commands.
+```
+  fsc Testsuite.scala
+  scala org.scalatest.run Testsuite
+```
 
 ## Advantages of the library
 
