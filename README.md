@@ -3,8 +3,8 @@
 
 **Contents**
 * [Project Summary](#project-summary)
-* [Documentation](#documentation)
 * [Installation](#installation)
+* [Documentation](#documentation)
 * [A brief presentation of the commands](#a-brief-presentation-of-the-commands)
 * [Correctness of the library using ScalaTest](#correctness-of-the-library-using-scalatest)
 * [Advantages of the library](#advantages-of-the-library)
@@ -32,6 +32,17 @@ In order to use the library, you need to create an object instance of the MVOper
 
 I also included the unit testing facility which can be found in the file Testsuite.scala. This is described more [here](#correctness-of-the-library-using-scalatest). To suggest how useful the library is I also implemented some numerical methods for root-finding and optimization which make use of this library. These are explained [here](#an-example-numerical-methods-implemented-using-the-library).
 
+## Installation
+There is just one version of my library. It is optimized for Scala 2.13.1. To install it, it should be enough just to clone the repository to your own machine. I have already compiled the Scala files and the class files already exist. However, if the library doesn't work yet, it should be compiled one more time using the following command in the command line:.
+```
+  fsc MatrixOp.scala
+```
+Afterwards, you can start using the library by creating a new object using the next command.
+```scala
+  val u = new MVOperations
+```
+Examples to be run can be found at the beginning of the Testsuite.scala file. You can copy them and run different functions using the Scala REPL interpreter. 
+
 ## Documentation
 I created the documentation for this library using the scaladoc feature from Scala. I implemented the comments of the functions such that this feature generates an HTML documentation of our library. I have already created the HTML file.
 
@@ -40,19 +51,50 @@ Therefore, the documentation for the library can be found in the HTML file MVOpe
   scaladoc MatrixOp.scala
 ```
 ![](/ss/DocPhoto.PNG)
-## Installation
 
 ## A brief presentation of the commands
+Below can be found a table containing the available library facilities and a short description of what they do (to check their detailed description you can look on the HTML documentation file).
+
+Function | Description
+-------- | -----------
+addM/addV | Add 2 matrices/vectors
+angleV | Find the angle between 2 vectors
+areOrth/areOrthSets | Check for orthogonality between vectors/sets of vectors
+columnSpace/rowSpace/nullspace | Compute row/column/null space of a matrix 
+copyM/copyV | Copy a matrix/vector
+ctmulM/ctmulV | Multiply a matrix/vector by a constant
+det | Compute the determinant of a matrix
+eigvals | Compute the eigenvalues of a matrix (working optimally only for full-rank symmetric square matrices)
+eigvectors / eigvectorsNorm | Compute (the normalized) eigenvectors of a matrix (working optimally only for full-rank symmetric square matrices)
+elMAdd/elMMul/elMSwitch | Compute an elementary matrix for adding/multiplying/switching
+elOpAdd/elOpMul/elOpSwitch | Do an addition/multiplication/switching elementary operation on a matrix
+expM | Exponentiate a square matrix
+fillM/fillV | Change a matrix/vector size
+genId | Generate an identity matrix
+inverse | Compute the inverse of a matrix
+isEqualM|isEqualV | Check for equality between matrices/vectors
+isInd | Check for linearly independence of a vector set
+isOnetoOneLinTr/isOntoLinTr | Check if a linear transformation is 1-1/onto
+isOrthNormSet/isOrthSet | Check if a set of vectors is orthonormal/orthogonal
+isSymmetric | Check if a square matrix is symmetric
+kernelLinTr/rangeLinTr | Compute the kernel/range of a linear transformation
+lengthV | Compute the length of a vector
+matrtoval/matrtovect | Transform a matrix into a value/vector
+mulM/mulMV/mulV | Multiply 2 matrices/ 1 matrix and 1 vector / 2 vectors
+noMsgSysSolve/sysSolve | Solve a linear equation (without) printing the solution
+normV | Normalize a vector
+nullityLinTr/rankLinTr | Compute the nullity/rank of a linear transformation
+orthGrSch | Compute the Gram-Schmidt orthogonalization
+plu/qr | Compute the PLU/QR decomposition of a matrix
+printM/printV | Print a matrix/vector
+rank | Compute the rank of a matrix
+ref/rref | Reduce a matrix to its REF/RREF form
+subM/subV | Subtract 2 matrices/vectors
+transposeM/transposeV | Transpose a matrix/vector
+vecttomatr | Transform a vector into a matrix
 
 ## Correctness of the library using ScalaTest
 
 ## Advantages of the library
 
 ## An example (numerical methods implemented using the library)
-
-
-
-
-
-
-
