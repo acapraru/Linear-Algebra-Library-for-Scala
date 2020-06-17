@@ -37,7 +37,7 @@ I created the documentation for this library using the scaladoc feature from Sca
 
 Therefore, the documentation for the library can be found in the HTML file MVOperations.html. After cloning the project, a simple  opening of the file should make the HTML page work. However, if this doesn't happen, the following command should be run using the command line in the project file which generates the HTML documentation and can be immediately open using the MVOperations.html file.
 ```
-  scaladoc MVOperations.scala
+  scaladoc MatrixOp.scala
 ```
 
 ## Installation
