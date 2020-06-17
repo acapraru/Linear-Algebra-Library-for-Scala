@@ -150,4 +150,5 @@ class numRootFinding{
 	if(n == N) println("We've reached the maximum number of allowed steps!")
 	return x
   }
+  
 }
