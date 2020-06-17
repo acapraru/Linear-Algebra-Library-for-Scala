@@ -138,6 +138,8 @@ In the file numMethodsTester.scala there is a various number of function example
 ```
 Afterwards, more results will be printed. Below there is just a small amount of what is printed (for the n dimensional root finding).
 
+![](ss/NumTest.PNG)
+
 All the functions can also be checked using the Scala REPL Interpreter copying the examples and creating objects for each of the classes.
 ```scala
   val u1 = new numIntegration
