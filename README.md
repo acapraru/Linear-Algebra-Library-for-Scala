@@ -122,7 +122,7 @@ These methods can be found in the files numIntegration.scala, numRootFinding.sca
 Below is a table with what each numerical method file contains.
 Type of numerical method | Algorithms
 ------------------------ | ---------
-1 dimensional integration | Midpoint rule, Trapezium rule and Simpson's rule
+1 dimensional integration | Midpoint rule, Trapezium rule, Simpson's rule
 1 dimensional root-finding | Bisection, Newton, Secant
 n dimensional root-finding | Newton, Broyden
 1 dimensional optimization | Golden section search
