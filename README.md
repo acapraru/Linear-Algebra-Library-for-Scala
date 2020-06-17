@@ -107,5 +107,21 @@ However, in order to ensure that the unit testing is accurate you cand alo recom
 ```
 
 ## Advantages of the library
+The main advantages of my library are:
+* Simplicity of the syntax which makes it easy for the user to understand how to use it
+* The flexibility of the Scala language which makes lots of functions easier to implement than in other programming languages because of the vast range of available data structures and libraries
+* The user-friendly documentation which lets the user work with the library efficiently
 
 ## An example (numerical methods implemented using the library)
+I decided to implement some numerical methods in more dimensions for optimizing and root-finding to prove the efficiency of the library. I also included 1-dimensional method which do not require the library (also for numerical integration).
+
+These methods can be found in the files numIntegration.scala, numRootFinding.scala and numOptimization.scala. They are already compiled. However, to ensure that they work efficiently you can compile them one more time using the following command.
+```
+  fsc numIntegration.scala numRootFinding.scala numOptimization.scala
+```
+I also included documentation HTML files for these which can be accessed using numIntegration.html, numRootFinding.html and numOptimization.html. Again, these can be compiled again using the following commands:
+```
+  scaladoc numIntegration.scala
+  scaladoc numRootFinding.scala
+  scaladoc numOptimization.scala
+```
