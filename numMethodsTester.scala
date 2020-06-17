@@ -120,12 +120,17 @@ object numMethTester{
     assert(xs.size == 2, "The function applies to vectors of dimension 2!")
 	val x = xs(0); val y = xs(1)
 	return 0.5*((x+y)*(x+y)*(x+y)*(x+y)+(x-y)*(x-y)*(x-y)*(x-y))
-  } // Gradient descent (s.p. (2,1)) (not converging very well)
+  } // Gradient descent + Newton + BFGS (s.p. (2,1)) (not converging very well for Gradient descent and not being very accurate for Newton and BFGS)
   def df23(xs:Array[Double]): Array[Double] ={
     assert(xs.size == 2, "The function applies to vectors of dimension 2!")
 	val x = xs(0); val y = xs(1)
 	return Array(0.5*(4*(x+y)*(x+y)*(x+y)+4*(x-y)*(x-y)*(x-y)),0.5*(4*(x+y)*(x+y)*(x+y)-4*(x-y)*(x-y)*(x-y)))
-  } // Gradient descent (s.p. (2,1)) (not converging very well)
+  } // Gradient descent + Newton + BFGS (s.p. (2,1)) (not converging very well for Gradient descent and not being very accurate for Newton and BFGS)
+  def hf23(xs:Array[Double]): Array[Array[Double]] ={
+    assert(xs.size == 2, "The function applies to vectors of dimension 2!")
+	val x = xs(0); val y = xs(1)
+    return Array(Array(0.5*(12*(x-y)*(x-y)+12*(x+y)*(x+y)),0.5*(12*(x+y)*(x+y)-12*(x-y)*(x-y))),Array(0.5*(12*(x+y)*(x+y)-12*(x-y)*(x-y)),0.5*(12*(x-y)*(x-y)+12*(x+y)*(x+y))))
+  } // Newton (s.p. (2,1)) (not being very accurate)
   def f24(xs:Array[Double]): Double ={
     assert(xs.size == 2, "The function applies to vectors of dimension 2!")
 	val x = xs(0); val y = xs(1)
