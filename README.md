@@ -113,15 +113,34 @@ The main advantages of my library are:
 * The user-friendly documentation which lets the user work with the library efficiently
 
 ## An example (numerical methods implemented using the library)
-I decided to implement some numerical methods in more dimensions for optimizing and root-finding to prove the efficiency of the library. I also included 1-dimensional method which do not require the library (also for numerical integration).
+I decided to implement some numerical methods in more dimensions for optimizing and root-finding to prove the efficiency of the library. I also included 1-dimensional methods which do not require the library (also for numerical integration).
 
 These methods can be found in the files numIntegration.scala, numRootFinding.scala and numOptimization.scala. They are already compiled. However, to ensure that they work efficiently you can compile them one more time using the following command.
 ```
   fsc numIntegration.scala numRootFinding.scala numOptimization.scala
 ```
+Below is a table with what each numerical method file contains.
+Type of numerical method | Algorithms
+------------------------ | ---------
+1 dimensional integration | Midpoint rule, Trapezium rule and Simpson's rule
+1 dimensional root-finding | Bisection, Newton, Secant
+n dimensional root-finding | Newton, Broyden
+1 dimensional optimization | Golden section search
+n dimensional optimization | Gradient descent, Newton, BFGS
+
 I also included documentation HTML files for these which can be accessed using numIntegration.html, numRootFinding.html and numOptimization.html. Again, these can be compiled again using the following commands:
 ```
-  scaladoc numIntegration.scala
-  scaladoc numRootFinding.scala
-  scaladoc numOptimization.scala
+  scaladoc numIntegration.scala numRootFinding.scala numOptimization.scala
+```
+In the file numMethodsTester.scala there is a various number of function examples for which I tested their accuracy. In order to see how they act, you can run the following command.
+```
+  scala numMethodsTester.scala
+```
+Afterwards, more results will be printed. Below there is just a small amount of what is printed (for the n dimensional root finding).
+
+All the functions can also be checked using the Scala REPL Interpreter copying the examples and creating objects for each of the classes.
+```scala
+  val u1 = new numIntegration
+  val u2 = new numRootFinding
+  val u3 = new numOptimization
 ```
