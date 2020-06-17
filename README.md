@@ -100,7 +100,7 @@ I used unit testing to test the correctness of my library. I made use of the Sca
 ```
   scala org.scalatest.run Testsuite
 ```
-However, in order to ensure that the unit testing is accurate you cand alo recompile the file and run it afterwards using the following 2 commands.
+However, in order to ensure that the unit testing is accurate you cand also recompile the file and run it afterwards using the following 2 commands.
 ```
   fsc Testsuite.scala
   scala org.scalatest.run Testsuite
