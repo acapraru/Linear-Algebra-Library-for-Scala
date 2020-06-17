@@ -33,6 +33,12 @@ In order to use the library, you need to create an object instance of the MVOper
 I also included the unit testing facility which can be found in the file Testsuite.scala. This is described more [here](#correctness-of-the-library-using-scalatest). To suggest how useful the library is I also implemented some numerical methods for root-finding and optimization which make use of this library. These are explained [here](#an-example-numerical-methods-implemented-using-the-library).
 
 ## Documentation
+I created the documentation for this library using the scaladoc feature from Scala. I implemented the comments of the functions such that this feature generates an HTML documentation of our library. I have already created the HTML file.
+
+Therefore, the documentation for the library can be found in the HTML file MVOperations.html. After cloning the project, a simple  opening of the file should make the HTML page work. However, if this doesn't happen, the following command should be run using the command line in the project file which generates the HTML documentation and can be immediately open using the MVOperations.html file.
+```
+  scaladoc MVOperations.scala
+```
 
 ## Installation
 
