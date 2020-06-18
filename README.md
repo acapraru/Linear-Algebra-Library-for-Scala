@@ -15,9 +15,9 @@ This project presents a Linear Algebra Library for Scala which contains basic ma
 
 The reason why I decided to implement such a library is that I wanted to give Scala users the opportunity to use a library which is very easy to understand. The aim of my library is to keep it as simple as possible. Most of the existing Linear Algebra libraries tend to have a more and more complicated syntax. Therefore, the design decision I took are based on keeping the usage of the library as clear as possible making the user clear about the functionalities of the library, without worrying about the complexities that might arrive. My library might not have its functionalities as efficient as others already have, but the fact that it might be easy-to-use is the main advantage it has and also makes it different from other such libraries.
 
-The code for the operations can be found in the file MatrixOp.scala. I decied to keep the whole code for the library in one file as it is easier finding already defined functions which can be used for adding further operations to the library. Also, I make use of scaladoc facility provided by Scala in order to have everything described in details on an HTML page.
+The code for the operations can be found in the file MatrixOp.scala. I decided to keep the whole code for the library in one file as it is easier finding already defined functions which can be used for adding further operations to the library. Also, I make use of scaladoc facility provided by Scala in order to have everything described in details on an HTML page.
 
-I decided to use 2 different types for everyting I did (column vectors and 2-Dimensioned Matrices):
+I decided to use 2 different types for everyting I did (column vectors and 2-dimensioned Matrices):
 ```scala
   /** Matrix made of an array of Double-valued arrays.
    */
@@ -44,7 +44,7 @@ Afterwards, you can start using the library by creating a new object using the n
 Examples to be run can be found at the beginning of the Testsuite.scala file. You can copy them and run different functions using the Scala REPL interpreter. 
 
 ## Documentation
-I created the documentation for this library using the scaladoc feature from Scala. I implemented the comments of the functions such that this feature generates an HTML documentation of our library. I have already created the HTML file.
+I created the documentation for this library using the scaladoc feature from Scala. I implemented the comments of the functions such that this feature generates an HTML documentation of my library. I have already created the HTML file.
 
 Therefore, the documentation for the library can be found in the HTML file MVOperations.html. After cloning the project, a simple  opening of the file should make the HTML page work. However, if this doesn't happen, the following command should be run using the command line in the project file which generates the HTML documentation and can be immediately open using the MVOperations.html file.
 ```
@@ -94,13 +94,13 @@ transposeM/transposeV | Transpose a matrix/vector
 vecttomatr | Transform a vector into a matrix
 
 ## Correctness of the library using ScalaTest
-ScalaTest is required to check that the unit testing works!
+(ScalaTest is required for this part)
 
 I used unit testing to test the correctness of my library. I made use of the ScalaTest testing framework. You can find the tests I made in the file Testsuite.scala. At the beginning there are more examples used in the tests and can also be copied to check different functionalities as well. I have already compiled the program and created the class files. To check that the unit testing works as expected just run the following command.
 ```
   scala org.scalatest.run Testsuite
 ```
-However, in order to ensure that the unit testing is accurate you cand also recompile the file and run it afterwards using the following 2 commands.
+However, in order to ensure that the unit testing is accurate you can also recompile the file and run it afterwards using the following 2 commands.
 ```
   fsc Testsuite.scala
   scala org.scalatest.run Testsuite
